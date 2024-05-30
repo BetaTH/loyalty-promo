@@ -32,7 +32,7 @@
     --card-foreground: 60 9.1% 97.8%;
     --popover: 20 14.3% 4.1%;
     --popover-foreground: 60 9.1% 97.8%;
-    --primary: 20.5 90.2% 48.2%;
+    --primary: 43 81% 56%;
     --primary-foreground: 60 9.1% 97.8%;
     --secondary: 12 6.5% 15.1%;
     --secondary-foreground: 60 9.1% 97.8%;
@@ -51,4 +51,17 @@
     * {
       @apply border-border;
     }
+
+    html {
+      @apply h-full scroll-smooth;
+      font-size: calc(100vw / 390 * 16);
+      
+    }
+  
+    @media screen and (min-width: 640px) {
+      html {
+        font-size: calc(100vw / 1440 * 16);
+      }
+    }
+  
   }

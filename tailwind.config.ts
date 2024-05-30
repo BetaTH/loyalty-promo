@@ -19,6 +19,10 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        'bank-gothic': ['var(--font-bank-gothic)'],
+        supermoloc: ['var(--font-supermolot)'],
+      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
