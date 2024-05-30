@@ -32,10 +32,9 @@ export default function RootLayout({
     <html lang="pt" suppressHydrationWarning>
       <body
         className={cn(
-          'bg-white',
-          inter.className,
+          'bg-background',
+          bankGothic.className,
           supermolot.variable,
-          bankGothic.variable,
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
