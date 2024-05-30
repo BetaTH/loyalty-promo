@@ -18,8 +18,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt" suppressHydrationWarning>
-      <body className={cn('', inter.className)}>
-        <ThemeProvider attribute="class" defaultTheme="system">
+      <body className={cn('bg-background', inter.className)}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
         </ThemeProvider>
       </body>
