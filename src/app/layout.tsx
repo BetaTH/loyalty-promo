@@ -13,12 +13,12 @@ export const metadata: Metadata = {
 }
 
 const supermolot = localFont({
-  src: './tt-supermolot-neue-extrabold.ttf',
+  src: '../fonts/tt-supermolot-neue-extrabold.ttf',
   display: 'swap',
   variable: '--font-supermolot',
 })
 const bankGothic = localFont({
-  src: './bank-gothic-light-bt.ttf',
+  src: '../fonts/bank-gothic-light-bt.ttf',
   display: 'swap',
   variable: '--font-bank-gothic',
 })
