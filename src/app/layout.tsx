@@ -4,6 +4,7 @@ import './globals.css'
 import { ThemeProvider } from '@/components/them-provider'
 import { cn } from '@/lib/utils/cn'
 import localFont from 'next/font/local'
+import { Toaster } from '@/components/ui/toaster'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -40,6 +41,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
         </ThemeProvider>
+        <Toaster />
       </body>
     </html>
   )
