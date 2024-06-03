@@ -1,19 +1,22 @@
 import { config } from 'dotenv'
-import { ZodError, z } from 'zod'
+import { z } from 'zod'
 
 config()
 
-const envSchema = z.object({})
+// if (process.env.NODE_ENV === 'test') {
+//   config({ path: '.env.test', override: true })
+// }
 
-export let env: z.infer<typeof envSchema>
+const envSchema = z.object({
+  NODE_ENV: z.enum(['development', 'prod', 'test']).default('prod'),
+  DATABASE_URL: z.string(),
+})
 
-try {
-  env = envSchema.parse(process.env)
-} catch (error) {
-  if (error instanceof ZodError) {
-    console.error(
-      'Environment variables was not defined:',
-      error.formErrors.fieldErrors,
-    )
-  }
+const _env = envSchema.safeParse(process.env)
+
+if (_env.success === false) {
+  console.error('Invalid environment variables!', _env.error.format())
+  throw new Error('Invalid environment variables!')
 }
+
+export const env = _env.data

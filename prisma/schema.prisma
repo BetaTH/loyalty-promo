@@ -8,7 +8,21 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator jsonSchema {
+  provider              = "prisma-json-schema-generator"
+  includeRequiredFields = "true"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id       String @id @default(uuid())
+  name     String
+  email    String @unique
+  password String
+
+  @@map("admin_users")
 }

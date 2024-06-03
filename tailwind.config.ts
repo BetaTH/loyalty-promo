@@ -4,6 +4,7 @@ import type { Config } from 'tailwindcss'
 const config = {
   darkMode: 'class',
   content: [
+    './node_modules/@premieroctet/next-admin/dist/**/*.{js,ts,jsx,tsx}',
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',

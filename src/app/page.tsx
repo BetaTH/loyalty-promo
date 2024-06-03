@@ -30,7 +30,7 @@ export default function Home() {
             SHAKE
           </CardDescription>
         </CardHeader>
-        <CardContent className="grid w-fit grid-cols-5 gap-3 sm:gap-5 mx-auto p-0">
+        <CardContent className="grid w-fit grid-cols-5 gap-3 sm:gap-5 mx-auto p-0 bg-primary">
           <div className="size-10 sm:size-16 bg-primary rounded-full" />
           <div className="size-10 sm:size-16 bg-primary rounded-full" />
           <div className="size-10 sm:size-16 bg-primary rounded-full" />
