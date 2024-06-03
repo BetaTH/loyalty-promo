@@ -5,7 +5,7 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "integer"
         },
         "name": {
           "type": "string"
@@ -22,12 +22,88 @@
         "email",
         "password"
       ]
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "cpf": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Purshace": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Purshace"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "email",
+        "cpf",
+        "phoneNumber"
+      ]
+    },
+    "Purshace": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "type": {
+          "type": "string",
+          "default": "shake",
+          "enum": [
+            "shake",
+            "common"
+          ]
+        },
+        "amount": {
+          "type": "number"
+        },
+        "isGift": {
+          "type": "boolean",
+          "default": false
+        },
+        "user": {
+          "$ref": "#/definitions/User"
+        }
+      },
+      "required": [
+        "amount",
+        "user_id"
+      ]
     }
   },
   "type": "object",
   "properties": {
     "adminUser": {
       "$ref": "#/definitions/AdminUser"
+    },
+    "user": {
+      "$ref": "#/definitions/User"
+    },
+    "purshace": {
+      "$ref": "#/definitions/Purshace"
     }
   }
 }

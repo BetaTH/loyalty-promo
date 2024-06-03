@@ -27,5 +27,9 @@ export default async function AdminPage({
     deleteAction: deleteItem,
   })
 
-  return <NextAdmin {...props} />
+  return (
+    <main className="bg-nextadmin-background-default w-full min-h-screen">
+      <NextAdmin {...props} />
+    </main>
+  )
 }
