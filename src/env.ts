@@ -8,7 +8,7 @@ config()
 // }
 
 const envSchema = z.object({
-  NODE_ENV: z.enum(['development', 'prod', 'test']).default('prod'),
+  NODE_ENV: z.enum(['development', 'production', 'test']).default('production'),
   DATABASE_URL: z.string(),
 })
 
