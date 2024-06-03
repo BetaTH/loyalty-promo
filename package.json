@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@premieroctet/next-admin": "^4.4.0",
@@ -21,7 +22,7 @@
     "lucide-react": "^0.379.0",
     "next": "14.2.3",
     "next-themes": "^0.3.0",
-    "prisma-json-schema-generator": "^5.1.4",
+    "prisma-json-schema-generator": "5.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tailwind-merge": "^2.3.0",
