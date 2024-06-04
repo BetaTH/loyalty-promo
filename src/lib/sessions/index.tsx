@@ -10,14 +10,14 @@ type SessionPayload = {
   sub: string
   email: string
   name: string
-  expiresAt: Date
+  role: 'COMMON' | 'ADMIN'
 }
 
-export async function createToken(payload: SessionPayload) {
+export async function createToken(payload: SessionPayload, expiresAt: Date) {
   return new SignJWT(payload)
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
-    .setExpirationTime(payload.expiresAt)
+    .setExpirationTime(expiresAt)
     .sign(encodedKey)
 }
 
@@ -39,9 +39,9 @@ function createExpiresAt() {
   return expiresAt
 }
 
-export async function createSession(id: string, email: string, name: string) {
+export async function createSession(sessionPayload: SessionPayload) {
   const expiresAt = createExpiresAt()
-  const token = await createToken({ sub: id, email, name, expiresAt })
+  const token = await createToken(sessionPayload, expiresAt)
 
   cookies().set('session', token, {
     httpOnly: true,
@@ -61,11 +61,13 @@ export async function getSession() {
       sub: string
       email: string
       name: string
+      role: 'COMMON' | 'ADMIN'
     } = {
       hasSession: true,
       sub: session.sub,
       email: session.email,
       name: session.name,
+      role: session.role,
     }
     return right
   } else {
@@ -74,20 +76,19 @@ export async function getSession() {
       sub?: undefined
       email?: undefined
       name?: undefined
+      role?: undefined
     } = { hasSession: false }
     return left
   }
 }
 
 export async function updateSessionMiddleware(
-  id: string,
-  email: string,
-  name: string,
+  sessionPayload: SessionPayload,
   res?: NextResponse,
 ) {
   const response = res || NextResponse.next()
   const expiresAt = createExpiresAt()
-  const token = await createToken({ sub: id, email, name, expiresAt })
+  const token = await createToken(sessionPayload, expiresAt)
   response.cookies.set({
     name: 'session',
     value: token,

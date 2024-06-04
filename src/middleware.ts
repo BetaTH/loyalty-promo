@@ -1,9 +1,20 @@
 // middleware.ts
 import { NextRequest, NextResponse } from 'next/server'
-import { getSession, updateSessionMiddleware } from './lib/user-sessions'
 
-// const privateRoutes = ['/', '/admin']
+import { getSession, updateSessionMiddleware } from './lib/sessions'
+
 const publicRoutes = ['/login', '/admin/login']
+
+async function hasAdmin(baseUrl: string): Promise<{ adminExists: boolean }> {
+  const res = await fetch(`${baseUrl}/api/admin/exists`)
+  const data = await res.json()
+  if (res.ok) {
+    return data
+  }
+  return {
+    adminExists: true,
+  }
+}
 
 export async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname
@@ -11,32 +22,64 @@ export async function middleware(req: NextRequest) {
 
   const session = await getSession()
 
-  if (!session.hasSession && isProtectedRoute) {
-    if (req.nextUrl.pathname.startsWith('/admin')) {
-      return NextResponse.redirect(new URL('/admin/login', req.nextUrl))
+  if (!session.hasSession) {
+    if (path === '/admin/registro') {
+      const { adminExists } = await hasAdmin(req.nextUrl.origin)
+      if (adminExists) {
+        return NextResponse.redirect(new URL('/admin/login', req.nextUrl))
+      }
+      return NextResponse.next()
     }
-    return NextResponse.redirect(new URL('/login', req.nextUrl))
+    if (path.startsWith('/admin')) {
+      const { adminExists } = await hasAdmin(req.nextUrl.origin)
+      if (!adminExists) {
+        return NextResponse.redirect(new URL('/admin/registro', req.nextUrl))
+      }
+    }
+
+    if (isProtectedRoute) {
+      if (path.startsWith('/admin')) {
+        const { adminExists } = await hasAdmin(req.nextUrl.origin)
+        console.log('adminExists', adminExists)
+        if (!adminExists) {
+          return NextResponse.redirect(new URL('/admin/registro', req.nextUrl))
+        }
+        return NextResponse.redirect(new URL('/admin/login', req.nextUrl))
+      }
+      return NextResponse.redirect(new URL('/login', req.nextUrl))
+    }
+    return NextResponse.next()
   }
-  if (session.hasSession) {
-    if (req.nextUrl.pathname === '/login') {
-      return NextResponse.redirect(new URL('/', req.nextUrl))
+
+  if (session.role === 'ADMIN') {
+    if (path === '/admin/login') {
+      return NextResponse.redirect(new URL('/admin', req.nextUrl))
     }
-    if (req.nextUrl.pathname === '/admin/login') {
+    if (path === '/admin/registro') {
+      return NextResponse.redirect(new URL('/admin', req.nextUrl))
+    }
+    if (!path.startsWith('/admin')) {
       return NextResponse.redirect(new URL('/admin', req.nextUrl))
     }
   }
-
-  const res = NextResponse.next()
-
-  if (session.hasSession) {
-    return await updateSessionMiddleware(
-      session.sub,
-      session.email,
-      session.name,
-      res,
-    )
+  if (session.role === 'COMMON') {
+    if (path === '/login') {
+      return NextResponse.redirect(new URL('/', req.nextUrl))
+    }
+    if (path.startsWith('/admin')) {
+      return NextResponse.redirect(new URL('/', req.nextUrl))
+    }
   }
-  return res
+
+  return await updateSessionMiddleware(
+    {
+      sub: session.sub,
+      email: session.email,
+      name: session.name,
+      role: session.role,
+    },
+    NextResponse.next(),
+  )
 }
 
 export const config = {

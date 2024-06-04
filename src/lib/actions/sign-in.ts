@@ -1,8 +1,9 @@
 'use server'
+import { z } from 'zod'
 
 import { UsersRepository } from '@/server/prisma/repositories/users-repository'
-import { z } from 'zod'
-import { createSession } from '../user-sessions'
+
+import { createSession } from '../sessions'
 
 const signInDataSchema = z.object({
   email: z.string().email(),
@@ -29,7 +30,7 @@ export async function signIn(
     return {
       ok: false,
       status: 400,
-      message: 'Credenciais Invalidas',
+      message: 'Dados enviados de forma incorreta',
     }
   }
 
@@ -44,6 +45,11 @@ export async function signIn(
       message: 'Credenciais Invalidas',
     }
   }
-  createSession(String(user.id), user.email, user.name)
+  createSession({
+    sub: String(user.id),
+    email: user.email,
+    name: user.name,
+    role: 'COMMON',
+  })
   return { ok: true, status: 200 }
 }

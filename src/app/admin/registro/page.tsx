@@ -7,55 +7,63 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { signIn } from '@/lib/actions/sign-in'
+import { firstSignUp } from '@/lib/actions/nextadmin'
 import { useToast } from '@/lib/hooks/use-toast'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { useFormState } from 'react-dom'
-
-export default function Home() {
+export default function AdminLogin() {
   const router = useRouter()
   const { toast } = useToast()
 
-  const [signInState, signInFormAction, isPending] = useFormState(signIn, {})
+  const [firstSignUpState, firstSignUpFormAction, isPending] = useFormState(
+    firstSignUp,
+    {},
+  )
 
   useEffect(() => {
-    if (signInState.ok === false) {
-      toast({ title: signInState.message, variant: 'destructive' })
+    if (firstSignUpState.ok === false) {
+      toast({ title: firstSignUpState.message, variant: 'destructive' })
     }
-    if (signInState.ok === true) {
-      router.replace('/admin')
+    if (firstSignUpState.ok === true) {
+      router.replace('/admin/login')
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [signInState])
-
+  }, [firstSignUpState])
   return (
     <main className="min-h-dvh flex items-center justify-center px-4">
       <Card className="rounded-lg shadow-md shadow-white/10 sm:p-5">
         <CardHeader className="sm:w-96">
-          <CardTitle className="sm:text-4xl">Acesse sua conta</CardTitle>
+          <CardTitle className="sm:text-4xl">
+            Primeiro Acesso de Admin!
+          </CardTitle>
           <CardDescription className="sm:text-lg">
-            Faça login com seu Email e CPF
+            Crie sua conta como administrador!
           </CardDescription>
         </CardHeader>
-        <form action={signInFormAction}>
+        <form action={firstSignUpFormAction}>
           <CardContent className="space-y-4">
             <div className="space-y-1">
-              <Label className="sm:text-xl">Email</Label>
-              <Input name="email" className="sm:text-2xl" required />
+              <Label className="sm:text-xl">Nome</Label>
+              <Input name="name" className="sm:text-2xl" type="text" />
             </div>
             <div className="space-y-1">
-              <Label className="sm:text-xl">CPF</Label>
-              <Input name="cpf" className="sm:text-2xl" required />
+              <Label className="sm:text-xl">email</Label>
+              <Input name="email" className="sm:text-2xl" type="text" />
+            </div>
+            <div className="space-y-1">
+              <Label className="sm:text-xl">Senha</Label>
+              <Input name="password" className="sm:text-2xl" type="password" />
             </div>
             <Button
               className="w-full sm:text-xl text-black"
               disabled={isPending}
             >
-              Entrar
+              Registrar
             </Button>
           </CardContent>
         </form>
