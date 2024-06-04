@@ -10,7 +10,7 @@ import {
 
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { firstSignUp } from '@/lib/actions/nextadmin'
+import { firstSignUp } from '@/lib/actions/auth-admin-user'
 import { useToast } from '@/lib/hooks/use-toast'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
