@@ -7,72 +7,76 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
+// import {
+//   Dialog,
+//   DialogContent,
+//   DialogDescription,
+//   DialogHeader,
+//   DialogTitle,
+// } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { signIn } from '@/lib/actions/sign-in'
-import { signUp } from '@/lib/actions/sign-up'
+// import { signUp } from '@/lib/actions/sign-up'
 import { useToast } from '@/lib/hooks/use-toast'
-import { DialogTrigger } from '@radix-ui/react-dialog'
+import { useRouter } from 'next/navigation'
+// import { DialogTrigger } from '@radix-ui/react-dialog'
 import { useEffect } from 'react'
 import { useFormState } from 'react-dom'
 
 export default function Home() {
+  const router = useRouter()
   const { toast } = useToast()
 
   const [signInState, signInFormAction] = useFormState(signIn, {})
-  const [signUpState, signUpFormAction] = useFormState(signUp, {})
+  // const [signUpState, signUpFormAction] = useFormState(signUp, {})
 
   useEffect(() => {
     if (signInState.ok === false) {
-      toast({ title: 'Credenciais Invalidas', variant: 'destructive' })
+      toast({ title: signInState.message, variant: 'destructive' })
     }
+    router.replace('/')
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signInState])
 
-  useEffect(() => {
-    if (signUpState.ok === false) {
-      toast({ title: 'Credenciais Invalidas', variant: 'destructive' })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [signUpState])
+  // useEffect(() => {
+  //   if (signUpState.ok === false) {
+  //     toast({ title: 'Credenciais Invalidas', variant: 'destructive' })
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [signUpState])
 
   return (
     <main className="min-h-dvh flex items-center justify-center px-4">
-      <Dialog>
-        <Card className="rounded-lg shadow-md shadow-white/10 sm:p-5">
-          <CardHeader className="sm:w-96">
-            <CardTitle className="sm:text-4xl">Acesse sua conta</CardTitle>
-            <CardDescription className="sm:text-lg">
-              Faça login com seu CPF e número de celular!
-            </CardDescription>
-          </CardHeader>
-          <form action={signInFormAction}>
-            <CardContent className="space-y-4">
-              <div className="space-y-1">
-                <Label className="sm:text-xl">Email</Label>
-                <Input name="email" className="sm:text-2xl" required />
-              </div>
-              <div className="space-y-1">
-                <Label className="sm:text-xl">Telefone Celular</Label>
-                <Input name="phoneNumber" className="sm:text-2xl" required />
-              </div>
-              <Button className="w-full sm:text-xl text-black">Entrar</Button>
-              <DialogTrigger asChild>
-                <Button className="w-full sm:text-xl" variant="secondary">
-                  Cadastrar-se
-                </Button>
-              </DialogTrigger>
-            </CardContent>
-          </form>
-        </Card>
-        <DialogContent className="w-[20rem] sm:w-full sm:max-w-fit">
+      {/* <Dialog> */}
+      <Card className="rounded-lg shadow-md shadow-white/10 sm:p-5">
+        <CardHeader className="sm:w-96">
+          <CardTitle className="sm:text-4xl">Acesse sua conta</CardTitle>
+          <CardDescription className="sm:text-lg">
+            Faça login com seu Email e CPF
+          </CardDescription>
+        </CardHeader>
+        <form action={signInFormAction}>
+          <CardContent className="space-y-4">
+            <div className="space-y-1">
+              <Label className="sm:text-xl">Email</Label>
+              <Input name="email" className="sm:text-2xl" required />
+            </div>
+            <div className="space-y-1">
+              <Label className="sm:text-xl">CPF</Label>
+              <Input name="cpf" className="sm:text-2xl" required />
+            </div>
+            <Button className="w-full sm:text-xl text-black">Entrar</Button>
+            {/* <DialogTrigger asChild>
+              <Button className="w-full sm:text-xl" variant="secondary">
+                Cadastrar-se
+              </Button>
+            </DialogTrigger> */}
+          </CardContent>
+        </form>
+      </Card>
+      {/* <DialogContent className="w-[20rem] sm:w-full sm:max-w-fit">
           <DialogHeader className="sm:w-96">
             <DialogTitle className="sm:text-4xl">Cadastre-se</DialogTitle>
             <DialogDescription className="sm:text-lg">
@@ -110,8 +114,8 @@ export default function Home() {
               </Button>
             </div>
           </form>
-        </DialogContent>
-      </Dialog>
+        </DialogContent> */}
+      {/* </Dialog> */}
     </main>
   )
 }

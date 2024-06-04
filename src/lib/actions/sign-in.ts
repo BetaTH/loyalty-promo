@@ -1,10 +1,12 @@
 'use server'
 
+import { UsersRepository } from '@/server/prisma/repositories/users-repository'
 import { z } from 'zod'
+import { createSession } from '../user-sessions'
 
 const signInDataSchema = z.object({
   email: z.string().email(),
-  phoneNumber: z.string(),
+  cpf: z.string(),
 })
 
 interface SignInState {
@@ -19,7 +21,7 @@ export async function signIn(
 ): Promise<SignInState> {
   const rawFormData = {
     email: formData.get('email'),
-    phoneNumber: formData.get('phoneNumber'),
+    cpf: formData.get('cpf'),
   }
 
   const validatedData = signInDataSchema.safeParse(rawFormData)
@@ -31,7 +33,17 @@ export async function signIn(
     }
   }
 
-  console.log(validatedData.data)
+  const { email, cpf } = validatedData.data
+  const usersRepository = new UsersRepository()
+  const user = await usersRepository.getUserByEmailAndCPF(email, cpf)
 
+  if (!user) {
+    return {
+      ok: false,
+      status: 400,
+      message: 'Credenciais Invalidas',
+    }
+  }
+  createSession(String(user.id), user.email, user.name)
   return { ok: true, status: 200 }
 }

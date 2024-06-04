@@ -1,0 +1,105 @@
+import 'server-only'
+import { SignJWT, jwtVerify } from 'jose'
+import { cookies } from 'next/headers'
+import { NextResponse } from 'next/server'
+
+const secretKey = process.env.JWT_SECRET_KEY
+const encodedKey = new TextEncoder().encode(secretKey)
+
+type SessionPayload = {
+  sub: string
+  email: string
+  name: string
+  expiresAt: Date
+}
+
+export async function createToken(payload: SessionPayload) {
+  return new SignJWT(payload)
+    .setProtectedHeader({ alg: 'HS256' })
+    .setIssuedAt()
+    .setExpirationTime(payload.expiresAt)
+    .sign(encodedKey)
+}
+
+export async function verifyToken(token: string | undefined = '') {
+  try {
+    const { payload } = await jwtVerify(token, encodedKey, {
+      algorithms: ['HS256'],
+    })
+    return payload as SessionPayload
+  } catch (error) {
+    // console.log('Failed to verify session')
+    return undefined
+  }
+}
+
+function createExpiresAt() {
+  const days = 30 * 24 * 60 * 60 * 1000 // time in milliseconds
+  const expiresAt = new Date(Date.now() + days)
+  return expiresAt
+}
+
+export async function createSession(id: string, email: string, name: string) {
+  const expiresAt = createExpiresAt()
+  const token = await createToken({ sub: id, email, name, expiresAt })
+
+  cookies().set('session', token, {
+    httpOnly: true,
+    secure: true,
+    expires: expiresAt,
+    sameSite: 'strict',
+    path: '/',
+  })
+}
+
+export async function getSession() {
+  const cookie = cookies().get('session')?.value
+  const session = await verifyToken(cookie)
+  if (!!session && !!session.sub) {
+    const right: {
+      hasSession: true
+      sub: string
+      email: string
+      name: string
+    } = {
+      hasSession: true,
+      sub: session.sub,
+      email: session.email,
+      name: session.name,
+    }
+    return right
+  } else {
+    const left: {
+      hasSession: false
+      sub?: undefined
+      email?: undefined
+      name?: undefined
+    } = { hasSession: false }
+    return left
+  }
+}
+
+export async function updateSessionMiddleware(
+  id: string,
+  email: string,
+  name: string,
+  res?: NextResponse,
+) {
+  const response = res || NextResponse.next()
+  const expiresAt = createExpiresAt()
+  const token = await createToken({ sub: id, email, name, expiresAt })
+  response.cookies.set({
+    name: 'session',
+    value: token,
+    httpOnly: true,
+    secure: true,
+    expires: expiresAt,
+    sameSite: 'strict',
+    path: '/',
+  })
+  return response
+}
+
+export function deleteSession() {
+  cookies().delete('session')
+}

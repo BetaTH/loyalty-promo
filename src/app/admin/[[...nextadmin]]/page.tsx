@@ -1,13 +1,13 @@
 import { NextAdmin } from '@premieroctet/next-admin'
 import { getPropsFromParams } from '@premieroctet/next-admin/dist/appRouter'
 import schema from '../../../../prisma/json-schema/json-schema.json'
-import { prisma } from '@/lib/prisma'
 import {
   deleteItem,
   searchResource,
   submitFormAction,
 } from '@/lib/actions/nextadmin'
 import '../../globals.css'
+import { prisma } from '@/server/prisma'
 
 export default async function AdminPage({
   params,

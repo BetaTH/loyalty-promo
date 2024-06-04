@@ -1,4 +1,5 @@
 'use server'
+import { prisma } from '@/server/prisma'
 import { ActionParams, ModelName } from '@premieroctet/next-admin'
 import {
   SearchPaginatedResourceParams,
@@ -6,7 +7,6 @@ import {
   searchPaginatedResource,
   submitForm,
 } from '@premieroctet/next-admin/dist/actions'
-import { prisma } from '../prisma'
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
