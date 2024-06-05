@@ -1,6 +1,10 @@
 import { NextAdminOptions } from '@premieroctet/next-admin'
+import { InputPhoneNumber } from '@/components/admin-custom-inputs/input-phone-number'
 import { formatPhoneNumber } from '../functions/format-phone-number'
-import InputPhoneNumber from '@/components/input-phone-number'
+import { formatMoney } from '../functions/format-money'
+import { InputMoney } from '@/components/admin-custom-inputs/input-money'
+import { formatCPF } from '../functions/format-cpf'
+import { InputCPF } from '@/components/admin-custom-inputs/input-cpf'
 
 export const options: NextAdminOptions = {
   basePath: '/admin',
@@ -29,6 +33,9 @@ export const options: NextAdminOptions = {
           phoneNumber: {
             formatter: formatPhoneNumber,
           },
+          cpf: {
+            formatter: formatCPF,
+          },
         },
       },
       edit: {
@@ -36,6 +43,9 @@ export const options: NextAdminOptions = {
         fields: {
           phoneNumber: {
             input: <InputPhoneNumber />,
+          },
+          cpf: {
+            input: <InputCPF />,
           },
         },
       },
@@ -60,10 +70,22 @@ export const options: NextAdminOptions = {
               return user.name
             },
           },
+          amount: {
+            formatter: (amount) => {
+              return formatMoney(amount.toFixed(2))
+            },
+          },
           created_at: {
             formatter: (date) => {
               return new Date(date).toLocaleString('pt-BR').split(/[\s,]+/)[0]
             },
+          },
+        },
+      },
+      edit: {
+        fields: {
+          amount: {
+            input: <InputMoney />,
           },
         },
       },
