@@ -1,3 +1,4 @@
+import { LayoutWithFooter } from '@/components/layout/layout-with-footer'
 import {
   Card,
   CardContent,
@@ -15,8 +16,8 @@ export default async function Home() {
   const userStats = await getUserStats()
   const count = Array.from({ length: 10 }, (_, i) => i + 1)
   return (
-    <main className="min-h-dvh flex items-center justify-center">
-      <Card className="w-[21.25rem] sm:rounded-2xl rounded-xl sm:w-[42.5rem] sm:p-6 p-4 gap-6 sm:gap-12 flex flex-col shadow-md border border-gray-200/20 shadow-white/10">
+    <LayoutWithFooter withHeader>
+      <Card className="max-w-full w-[21.25rem] sm:rounded-2xl rounded-xl sm:w-[42.5rem] sm:p-6 p-4 gap-6 sm:gap-12 flex flex-col shadow-md border border-gray-200/20 shadow-white/10">
         <Image
           src="./logo-sa.svg"
           alt="logo"
@@ -49,6 +50,6 @@ export default async function Home() {
           })}
         </CardContent>
       </Card>
-    </main>
+    </LayoutWithFooter>
   )
 }

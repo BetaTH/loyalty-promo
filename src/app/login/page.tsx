@@ -1,4 +1,6 @@
 'use client'
+import { Footer } from '@/components/layout/footer'
+import { LayoutWithFooter } from '@/components/layout/layout-with-footer'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -26,17 +28,19 @@ export default function Home() {
       toast({ title: signInState.message, variant: 'destructive' })
     }
     if (signInState.ok === true) {
-      router.replace('/admin')
+      router.replace('/')
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signInState])
 
   return (
-    <main className="min-h-dvh flex items-center justify-center px-4">
-      <Card className="rounded-lg shadow-md shadow-white/10 sm:p-5">
+    <LayoutWithFooter>
+      <Card className="rounded-lg shadow-md shadow-white/10 sm:p-5 w-full sm:w-fit">
         <CardHeader className="sm:w-96">
-          <CardTitle className="sm:text-4xl">Acesse sua conta</CardTitle>
+          <CardTitle className="text-3xl sm:text-4xl">
+            Acesse sua conta
+          </CardTitle>
           <CardDescription className="sm:text-lg">
             Faça login com seu Email e CPF
           </CardDescription>
@@ -60,6 +64,6 @@ export default function Home() {
           </CardContent>
         </form>
       </Card>
-    </main>
+    </LayoutWithFooter>
   )
 }

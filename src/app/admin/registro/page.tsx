@@ -1,4 +1,5 @@
 'use client'
+import { LayoutWithFooter } from '@/components/layout/layout-with-footer'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -35,10 +36,10 @@ export default function AdminLogin() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [firstSignUpState])
   return (
-    <main className="min-h-dvh flex items-center justify-center px-4">
-      <Card className="rounded-lg shadow-md shadow-white/10 sm:p-5">
+    <LayoutWithFooter>
+      <Card className="rounded-lg shadow-md shadow-white/10 sm:p-5 w-full sm:w-fit">
         <CardHeader className="sm:w-96">
-          <CardTitle className="sm:text-4xl">
+          <CardTitle className="text-3xl sm:text-4xl">
             Primeiro Acesso de Admin!
           </CardTitle>
           <CardDescription className="sm:text-lg">
@@ -68,6 +69,6 @@ export default function AdminLogin() {
           </CardContent>
         </form>
       </Card>
-    </main>
+    </LayoutWithFooter>
   )
 }
