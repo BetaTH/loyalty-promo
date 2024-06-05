@@ -9,7 +9,7 @@ import {
   submitForm,
 } from '@premieroctet/next-admin/dist/actions'
 import { getSession } from '../sessions'
-import { options } from '../utils/options'
+import { options } from '@/next-admin-options'
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 

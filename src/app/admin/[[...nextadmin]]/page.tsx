@@ -8,8 +8,9 @@ import {
 } from '@/lib/actions/nextadmin'
 import '../../globals.css'
 import { prisma } from '@/server/prisma'
-import { options } from '@/lib/utils/options'
 import { getSession } from '@/lib/sessions'
+import { translations } from '@/next-admin-translations'
+import { options } from '@/next-admin-options'
 
 export default async function AdminPage({
   params,
@@ -28,6 +29,7 @@ export default async function AdminPage({
     action: submitFormAction,
     searchPaginatedResourceAction: searchResource,
     deleteAction: deleteItem,
+    // getMessages: async () => translations as Record<string, string>,
   })
 
   return (
@@ -41,6 +43,7 @@ export default async function AdminPage({
           },
           logoutUrl: '/api/logout',
         }}
+        translations={translations}
       />
     </main>
   )

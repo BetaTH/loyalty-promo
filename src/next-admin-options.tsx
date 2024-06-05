@@ -1,10 +1,10 @@
 import { NextAdminOptions } from '@premieroctet/next-admin'
 import { InputPhoneNumber } from '@/components/admin-custom-inputs/input-phone-number'
-import { formatPhoneNumber } from '../functions/format-phone-number'
-import { formatMoney } from '../functions/format-money'
 import { InputMoney } from '@/components/admin-custom-inputs/input-money'
-import { formatCPF } from '../functions/format-cpf'
 import { InputCPF } from '@/components/admin-custom-inputs/input-cpf'
+import { formatMoney } from './lib/functions/format-money'
+import { formatPhoneNumber } from './lib/functions/format-phone-number'
+import { formatCPF } from './lib/functions/format-cpf'
 
 export const options: NextAdminOptions = {
   basePath: '/admin',
