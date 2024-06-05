@@ -9,6 +9,7 @@ import {
   submitForm,
 } from '@premieroctet/next-admin/dist/actions'
 import { getSession } from '../sessions'
+import { options } from '../utils/options'
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
@@ -23,10 +24,7 @@ export const submitFormAction = async (
   if (session.role !== 'ADMIN') {
     return
   }
-  return submitForm(
-    { ...params, options: { basePath: '/admin' }, prisma },
-    formData,
-  )
+  return submitForm({ ...params, options, prisma }, formData)
 }
 
 export const deleteItem = async (
@@ -62,10 +60,7 @@ export const searchResource = async (
       error: null,
     }
   }
-  return searchPaginatedResource(
-    { ...actionParams, options: { basePath: '/admin' }, prisma },
-    params,
-  )
+  return searchPaginatedResource({ ...actionParams, options, prisma }, params)
 }
 
 export const submitEmail = async (

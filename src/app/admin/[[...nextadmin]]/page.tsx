@@ -8,6 +8,8 @@ import {
 } from '@/lib/actions/nextadmin'
 import '../../globals.css'
 import { prisma } from '@/server/prisma'
+import { options } from '@/lib/utils/options'
+import { getSession } from '@/lib/sessions'
 
 export default async function AdminPage({
   params,
@@ -16,10 +18,11 @@ export default async function AdminPage({
   params: { [key: string]: string[] }
   searchParams: { [key: string]: string | string[] | undefined } | undefined
 }) {
+  const session = await getSession()
   const props = await getPropsFromParams({
     params: params.nextadmin,
     searchParams,
-    options: { basePath: '/admin' },
+    options,
     prisma,
     schema,
     action: submitFormAction,
@@ -29,7 +32,16 @@ export default async function AdminPage({
 
   return (
     <main className="bg-nextadmin-background-default w-full min-h-screen">
-      <NextAdmin {...props} />
+      <NextAdmin
+        {...props}
+        user={{
+          data: {
+            name: session.name ?? '',
+            picture: '/logo-sa.png',
+          },
+          logoutUrl: '/api/logout',
+        }}
+      />
     </main>
   )
 }
