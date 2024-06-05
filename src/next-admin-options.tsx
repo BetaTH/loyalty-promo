@@ -75,6 +75,11 @@ export const options: NextAdminOptions = {
               return formatMoney(amount.toFixed(2))
             },
           },
+          isGift: {
+            formatter: (isGift) => {
+              return isGift ? 'Sim' : 'Não'
+            },
+          },
           created_at: {
             formatter: (date) => {
               return new Date(date).toLocaleString('pt-BR').split(/[\s,]+/)[0]
