@@ -5,9 +5,15 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import { getUserStats } from '@/lib/actions/user-stats'
+import { cn } from '@/lib/utils/cn'
 import Image from 'next/image'
 
-export default function Home() {
+export const dynamic = 'force-dynamic'
+
+export default async function Home() {
+  const userStats = await getUserStats()
+  const count = Array.from({ length: 10 }, (_, i) => i + 1)
   return (
     <main className="min-h-dvh flex items-center justify-center">
       <Card className="w-[21.25rem] sm:rounded-2xl rounded-xl sm:w-[42.5rem] sm:p-6 p-4 gap-6 sm:gap-12 flex flex-col shadow-md border border-gray-200/20 shadow-white/10">
@@ -31,16 +37,16 @@ export default function Home() {
           </CardDescription>
         </CardHeader>
         <CardContent className="grid w-fit grid-cols-5 gap-3 sm:gap-5 mx-auto p-0">
-          <div className="size-10 sm:size-16 bg-primary rounded-full" />
-          <div className="size-10 sm:size-16 bg-primary rounded-full" />
-          <div className="size-10 sm:size-16 bg-primary rounded-full" />
-          <div className="size-10 sm:size-16 bg-primary rounded-full" />
-          <div className="size-10 sm:size-16 bg-primary rounded-full" />
-          <div className="size-10 sm:size-16 bg-primary rounded-full" />
-          <div className="size-10 sm:size-16 bg-primary rounded-full" />
-          <div className="size-10 sm:size-16 bg-primary rounded-full" />
-          <div className="size-10 sm:size-16 bg-primary rounded-full" />
-          <div className="size-10 sm:size-16 bg-primary rounded-full" />
+          {count.map((value, idx) => {
+            return (
+              <div
+                key={idx}
+                className={cn('size-10 sm:size-16 bg-white rounded-full', {
+                  'bg-primary': value <= (userStats ? userStats.shakeCount : 0),
+                })}
+              />
+            )
+          })}
         </CardContent>
       </Card>
     </main>

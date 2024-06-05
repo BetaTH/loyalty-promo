@@ -40,12 +40,12 @@ model User {
   cpf         String     @unique
   phoneNumber String
   created_at  DateTime   @default(now())
-  Purshace    Purshace[]
+  purchase    Purchase[]
 
   @@map("users")
 }
 
-model Purshace {
+model Purchase {
   id         Int      @id @default(autoincrement())
   created_at DateTime @default(now())
   type       Type     @default(shake)
@@ -55,5 +55,5 @@ model Purshace {
   user    User @relation(fields: [user_id], references: [id])
   user_id Int
 
-  @@map("purshaces")
+  @@map("purchases")
 }
