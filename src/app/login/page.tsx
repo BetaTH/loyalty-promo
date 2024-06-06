@@ -1,5 +1,4 @@
 'use client'
-import { Footer } from '@/components/layout/footer'
 import { LayoutWithFooter } from '@/components/layout/layout-with-footer'
 import { Button } from '@/components/ui/button'
 import {
