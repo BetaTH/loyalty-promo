@@ -27,3 +27,4 @@ jobs:
         run: pnpm dlx prisma migrate deploy
         env:
           DATABASE_URL: "postgres://${{ secrets.DATABASE_USERNAME }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT }}/postgres?schema=public"
+          DIRECT_URL: "postgres://${{ secrets.DATABASE_USERNAME }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT }}/postgres?schema=public"
