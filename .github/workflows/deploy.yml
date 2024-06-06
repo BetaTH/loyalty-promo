@@ -7,6 +7,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: production
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -26,5 +27,5 @@ jobs:
       - name: Apply all pending migrations to the database
         run: pnpm dlx prisma migrate deploy
         env:
-          DATABASE_URL: "postgres://${{ secrets.DATABASE_USERNAME }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT }}/postgres?schema=public"
-          DIRECT_URL: "postgres://${{ secrets.DATABASE_USERNAME }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT }}/postgres?schema=public"
+          DATABASE_URL: postgres://${{ secrets.DATABASE_USERNAME }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT }}/postgres?schema=public
+          DIRECT_URL: postgres://${{ secrets.DATABASE_USERNAME }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT }}/postgres?schema=public
