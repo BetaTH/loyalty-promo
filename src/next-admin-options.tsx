@@ -8,10 +8,10 @@ import { formatCPF } from './lib/functions/format-cpf'
 
 export const options: NextAdminOptions = {
   basePath: '/admin',
-  title: 'SA Admin',
+  title: 'Admin',
   model: {
     User: {
-      toString: (user) => `${user.name} (${user.email})`,
+      toString: (user) => `${user.cpf} (${user.email})`,
       title: 'Clientes',
       icon: 'UsersIcon',
       aliases: {
@@ -91,6 +91,12 @@ export const options: NextAdminOptions = {
         fields: {
           amount: {
             input: <InputMoney />,
+            validate: (value) => {
+              if (!value || value <= 0) {
+                return 'O valor deve ser maior que 0'
+              }
+              return true
+            },
           },
         },
       },

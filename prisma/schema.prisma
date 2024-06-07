@@ -21,7 +21,7 @@ datasource db {
 
 enum Type {
   shake
-  common
+  comum
 }
 
 model AdminUser {
