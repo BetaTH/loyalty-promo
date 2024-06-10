@@ -3,11 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "pnpm services:up && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "services:up":"docker compose up -d",
+    "services:stop":"docker compose stop",
+    "services:down":"docker compose down"
   },
   "dependencies": {
     "@premieroctet/next-admin": "^4.4.1",

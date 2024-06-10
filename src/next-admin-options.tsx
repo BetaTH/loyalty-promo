@@ -86,6 +86,10 @@ export const options: NextAdminOptions = {
             },
           },
         },
+        defaultSort: {
+          field: 'id',
+          direction: 'desc',
+        },
       },
       edit: {
         fields: {
