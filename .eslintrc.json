@@ -4,6 +4,7 @@
     "@rocketseat/eslint-config/next"
   ],
   "rules": {
+    "no-useless-constructor": "off",
     "@typescript-eslint/no-unused-vars": [
       "warn",
       {

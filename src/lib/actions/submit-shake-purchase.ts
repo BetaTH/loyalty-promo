@@ -1,17 +1,16 @@
 'use server'
 
-import { options } from '@/next-admin-options'
-import { prisma } from '@/server/prisma'
 import { CustomersRepository } from '@/server/prisma/repositories/customers-repository'
 import { ActionParams } from '@premieroctet/next-admin'
-import { submitForm } from '@premieroctet/next-admin/dist/actions'
 import { getFinalAwardRoundDate } from '../functions/get-final-round-date'
+import { NextAdminRepository } from '@/server/prisma/repositories/next-admin-repository'
 
 export const submitShakePurchase = async (
   params: ActionParams,
   formData: FormData,
+  customersRepository: CustomersRepository,
+  nextAdminRepository: NextAdminRepository,
 ) => {
-  const customersRepository = new CustomersRepository()
   const customerId = Number(formData.get('customer'))
   const lastShakeAwardRound =
     await customersRepository.getLastShakeAwardRound(customerId)
@@ -19,12 +18,12 @@ export const submitShakePurchase = async (
   formData.append('createdAt', createdAt.toISOString())
 
   if (lastShakeAwardRound === null) {
-    return updateShakeAwardRoundWithPurchase(
+    return nextAdminRepository.updateShakeAwardRoundWithPurchase({
       params,
       formData,
       customerId,
       createdAt,
-    )
+    })
   }
 
   const finalShakeAwardRound = getFinalAwardRoundDate(lastShakeAwardRound, 30)
@@ -48,43 +47,20 @@ export const submitShakePurchase = async (
         error: 'Cliente elegível, adicionar prêmio',
       }
     }
-    return updateShakeAwardRoundWithPurchase(
+    return nextAdminRepository.updateShakeAwardRoundWithPurchase({
       params,
       formData,
       customerId,
       createdAt,
-    )
+    })
   }
   if (createdAt > finalShakeAwardRound) {
-    return updateShakeAwardRoundWithPurchase(
+    return nextAdminRepository.updateShakeAwardRoundWithPurchase({
       params,
       formData,
       customerId,
       createdAt,
-    )
-  }
-
-  return await submitForm({ ...params, options, prisma }, formData)
-}
-
-export const updateShakeAwardRoundWithPurchase = async (
-  params: ActionParams,
-  formData: FormData,
-  customerId: number,
-  createdAt: Date,
-) => {
-  return prisma.$transaction(async (tx) => {
-    await tx.customer.update({
-      where: {
-        id: customerId,
-      },
-      data: {
-        lastShakeAwardRound: createdAt,
-      },
     })
-    return await submitForm(
-      { ...params, options, prisma: tx as typeof prisma },
-      formData,
-    )
-  })
+  }
+  return nextAdminRepository.submitForm(params, formData)
 }

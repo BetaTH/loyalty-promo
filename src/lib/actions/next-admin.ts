@@ -1,19 +1,12 @@
 'use server'
 
-import { prisma } from '@/server/prisma'
 import { ActionParams, ModelName } from '@premieroctet/next-admin'
-import {
-  SearchPaginatedResourceParams,
-  deleteResourceItems,
-  searchPaginatedResource,
-  submitForm,
-} from '@premieroctet/next-admin/dist/actions'
+import { SearchPaginatedResourceParams } from '@premieroctet/next-admin/dist/actions'
 import { getSession } from '../sessions'
-import { options } from '@/next-admin-options'
 import { submitShakePurchase } from './submit-shake-purchase'
 import { submitShakeAward } from './submit-shake-award'
-
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+import { NextAdminRepository } from '../../server/prisma/repositories/next-admin-repository'
+import { CustomersRepository } from '@/server/prisma/repositories/customers-repository'
 
 export const submitFormAction = async (
   params: ActionParams,
@@ -27,27 +20,40 @@ export const submitFormAction = async (
     return
   }
 
+  const nextAdminRepository = new NextAdminRepository()
+  const customersRepository = new CustomersRepository()
+
   if (params.params?.includes('purchase') && params.params?.includes('new')) {
     const type = formData.get('type')
     if (type === 'shake') {
-      return submitShakePurchase(params, formData)
+      return submitShakePurchase(
+        params,
+        formData,
+        customersRepository,
+        nextAdminRepository,
+      )
     }
-    if (type === 'common') {
-      return submitForm({ ...params, options, prisma }, formData)
+    if (type === 'comum') {
+      return nextAdminRepository.submitForm(params, formData)
     }
   }
 
   if (params.params?.includes('award') && params.params?.includes('new')) {
     const type = formData.get('type')
     if (type === 'shake') {
-      return submitShakeAward(params, formData)
+      return submitShakeAward(
+        params,
+        formData,
+        customersRepository,
+        nextAdminRepository,
+      )
     }
-    if (type === 'common') {
-      return submitForm({ ...params, options, prisma }, formData)
+    if (type === 'comum') {
+      return nextAdminRepository.submitForm(params, formData)
     }
   }
 
-  return submitForm({ ...params, options, prisma }, formData)
+  return nextAdminRepository.submitForm(params, formData)
 }
 
 export const deleteItem = async (
@@ -61,7 +67,8 @@ export const deleteItem = async (
   if (session.role !== 'ADMIN') {
     return
   }
-  return deleteResourceItems(prisma, model, ids)
+  const nextAdminRepository = new NextAdminRepository()
+  return nextAdminRepository.deleteResourceItems(model, ids)
 }
 
 export const searchResource = async (
@@ -83,20 +90,6 @@ export const searchResource = async (
       error: null,
     }
   }
-  return searchPaginatedResource({ ...actionParams, options, prisma }, params)
-}
-
-export const submitEmail = async (
-  model: ModelName,
-  ids: number[] | string[],
-) => {
-  const session = await getSession()
-  if (!session.hasSession) {
-    return
-  }
-  if (session.role !== 'ADMIN') {
-    return
-  }
-  console.log('Sending email to ' + ids.length + ' users')
-  await delay(1000)
+  const nextAdminRepository = new NextAdminRepository()
+  return nextAdminRepository.searchPaginatedResource(actionParams, params)
 }

@@ -1,6 +1,8 @@
 import { prisma } from '..'
 
 export class CustomersRepository {
+  constructor() {}
+
   async getCustomerByEmailAndCPF(email: string, cpf: string) {
     const customer = await prisma.customer.findUnique({
       where: {
