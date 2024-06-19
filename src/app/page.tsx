@@ -28,10 +28,10 @@ export default async function Home() {
           className="absolute sm:w-[22.4375rem] w-[15rem] h-auto -top-5 -right-12"
         />
         <CardHeader className="p-0">
-          <CardTitle className="w-[14.75rem] max-h-[2.8875rem] sm:max-h-[5.25rem] line-clamp-2 font-normal text-[1.375rem]/[1.05em] sm:w-[27.5rem] sm:text-[2.5rem]/[1.05em]">
+          <CardTitle className="w-[14.75rem] max-h-[2.8875rem] font-bank-gothic sm:max-h-[5.25rem] line-clamp-2 font-normal text-[1.375rem]/[1.05em] sm:w-[27.5rem] sm:text-[2.5rem]/[1.05em]">
             {customer.name}
           </CardTitle>
-          <CardDescription className="text-sm/[1.05em] sm:text-2xl/[1.05em] mt-2 sm:mt-4">
+          <CardDescription className="text-sm/[1.05em] sm:text-2xl/[1.05em] mt-2 sm:mt-4 font-bank-gothic">
             Cartão Fidelidade:
           </CardDescription>
           <CardDescription className="text-3xl/6 sm:text-5xl mt-1 sm:mt-2 font-supermoloc text-primary">

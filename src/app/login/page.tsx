@@ -37,25 +37,25 @@ export default function Home() {
     <LayoutWithFooter>
       <Card className="rounded-lg shadow-md shadow-white/10 sm:p-5 w-full sm:w-fit">
         <CardHeader className="sm:w-96">
-          <CardTitle className="text-3xl sm:text-4xl">
+          <CardTitle className="text-3xl sm:text-4xl font-bank-gothic">
             Acesse sua conta
           </CardTitle>
-          <CardDescription className="sm:text-lg">
+          <CardDescription className="sm:text-lg font-bank-gothic">
             Faça login com seu Email e CPF
           </CardDescription>
         </CardHeader>
         <form action={signInFormAction}>
           <CardContent className="space-y-4">
             <div className="space-y-1">
-              <Label className="sm:text-xl">Email</Label>
+              <Label className="sm:text-xl font-bank-gothic">Email</Label>
               <Input name="email" className="sm:text-2xl" required />
             </div>
             <div className="space-y-1">
-              <Label className="sm:text-xl">CPF</Label>
+              <Label className="sm:text-xl font-bank-gothic">CPF</Label>
               <Input name="cpf" className="sm:text-2xl" required />
             </div>
             <Button
-              className="w-full sm:text-xl text-black"
+              className="w-full sm:text-xl text-black font-bank-gothic"
               disabled={isPending}
             >
               Entrar

@@ -16,12 +16,12 @@ export function Header() {
       <div className="mx-auto w-[65rem] sm:h-[5rem] py-3 sm:py-2 max-w-full flex justify-between items-center gap-2">
         <Link href={'/'} className="flex items-center gap-2">
           <SALogo className="text-primary sm:size-12 size-10" />
-          <span className="text-white sm:text-3xl text-lg text-center sm:flex-row">
+          <span className="text-white sm:text-3xl text-lg text-center sm:flex-row font-bank-gothic">
             Suplemento
           </span>
         </Link>
         <Button
-          className="sm:text-lg hover:text-primary "
+          className="sm:text-lg hover:text-primary font-bank-gothic"
           variant={'ghost'}
           onClick={handleLogout}
         >

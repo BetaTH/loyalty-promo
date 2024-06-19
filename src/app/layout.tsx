@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
-// import { Inter } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/components/them-provider'
 import { cn } from '@/lib/utils/cn'
 import localFont from 'next/font/local'
 import { Toaster } from '@/components/ui/toaster'
 
-// const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Promoção Fidelidade',
@@ -34,7 +34,8 @@ export default function RootLayout({
       <body
         className={cn(
           'bg-background',
-          bankGothic.className,
+          inter.className,
+          bankGothic.variable,
           supermolot.variable,
         )}
       >
