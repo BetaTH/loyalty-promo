@@ -8,11 +8,12 @@
     "start": "next start",
     "lint": "next lint",
     "postinstall": "prisma generate",
-    "services:up":"docker compose up -d",
-    "services:stop":"docker compose stop",
-    "services:down":"docker compose down"
+    "services:up": "docker compose up -d",
+    "services:stop": "docker compose stop",
+    "services:down": "docker compose down"
   },
   "dependencies": {
+    "@icons-pack/react-simple-icons": "^9.5.0",
     "@premieroctet/next-admin": "^4.4.1",
     "@prisma/client": "5.14.0",
     "@radix-ui/react-dialog": "^1.0.5",
@@ -24,7 +25,7 @@
     "clsx": "^2.1.1",
     "dotenv": "^16.4.5",
     "jose": "^5.4.0",
-    "lucide-react": "^0.379.0",
+    "lucide-react": "^0.395.0",
     "next": "14.2.3",
     "next-themes": "^0.3.0",
     "prisma-json-schema-generator": "5.1.1",
