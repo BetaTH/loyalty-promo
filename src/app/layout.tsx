@@ -33,7 +33,7 @@ export default function RootLayout({
     <html lang="pt" suppressHydrationWarning>
       <body
         className={cn(
-          'bg-background',
+          "bg-background bg-[url('/bg/bg.png')] bg-repeat",
           inter.className,
           bankGothic.variable,
           supermolot.variable,
