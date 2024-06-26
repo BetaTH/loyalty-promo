@@ -2,12 +2,38 @@ import { Button } from '@/components/ui/button'
 import { SiInstagram, SiWhatsapp } from '@icons-pack/react-simple-icons'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowBigDown } from 'lucide-react'
-import { PropsWithChildren } from 'react'
+import { Footer } from '@/components/layout/footer'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
+import { HowItWorksItem } from '@/components/landing-page/how-it-works-item'
+import { AboutItem } from '@/components/landing-page/about-item'
+import { HighlightsTitle } from '@/components/landing-page/highlights-title'
+import { HighlightsSubTitle } from '@/components/landing-page/highlights-subtitle'
 
 export default function Landing() {
+  const faq = [
+    {
+      title: 'Is it accessible?',
+      description: 'Yes. It adheres to the WAI-ARIA design pattern.',
+    },
+    {
+      title: 'Is it styled?',
+      description:
+        "Yes. It comes with default styles that matches the other component's aesthetic.",
+    },
+    {
+      title: 'Is it animated?',
+      description:
+        "Yes. It's animated by default, but you can disable it if you prefer.",
+    },
+  ]
+
   return (
-    <main>
+    <main className="bg-[url('/bg/bg.png')] bg-repeat">
       {/* HOW IT WORKS */}
       <section className="py-10 flex flex-col items-center justify-center gap-3 sm:py-8 sm:px-10 px-5">
         <HighlightsTitle>COMO FUNCIONA</HighlightsTitle>
@@ -54,7 +80,7 @@ export default function Landing() {
         <div className="flex flex-col sm:flex-row my-5 sm:w-[60rem] sm:max-w-full sm:justify-between">
           <AboutItem
             cardImgSrc="/card-smoothie.png"
-            tittle="Cartão Smoothie"
+            title="Cartão Smoothie"
             descriptions={[
               'Compre 10 unidades do nosso suplemento especial e ganhe a 11ª unidade grátis!',
               'Cada compra de nosso smoothie proteico acumula um ponto. Ao completar 10 pontos em um prazo de 30 dias, você ganha um smoothie grátis, que poderá ser resgatado dentro desse prazo!',
@@ -62,7 +88,7 @@ export default function Landing() {
           />
           <AboutItem
             cardImgSrc="/card-suplemento.png"
-            tittle="Cartão Suplemento"
+            title="Cartão Suplemento"
             descriptions={[
               'Em breve, lançaremos um cartão com novos prêmios incríveis!',
               'Fique atento para mais informações e descubra como você poderá acumular pontos e trocar por diversos prêmios exclusivos.',
@@ -123,84 +149,27 @@ export default function Landing() {
       </section>
       {/* //------// */}
 
-      <div className="h-[10rem]"></div>
+      {/* FAQS */}
+      <section className="bg-background sm:px-10 px-5">
+        <div className="w-[65rem] max-w-full mx-auto sm:py-20 py-10 flex flex-col gap-5 sm:gap-10">
+          <h2 className="sm:text-4xl text-2xl font-bold">FAQ</h2>
+          <Accordion type="single" collapsible className="w-full">
+            {faq.map((item, idx) => (
+              <AccordionItem value={`item-${idx + 1}`} key={idx}>
+                <AccordionTrigger className="text-lg sm:text-2xl">
+                  {item.title}
+                </AccordionTrigger>
+                <AccordionContent className="text-sm sm:text-lg">
+                  {item.description}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </section>
+      {/* //------// */}
+
+      <Footer />
     </main>
-  )
-}
-
-function HighlightsTitle({ children }: PropsWithChildren) {
-  return (
-    <>
-      <div className="flex gap-2 items-center justify-center">
-        <ArrowBigDown className="text-primary fill-primary h-10 w-8" />
-        <h2 className="text-2xl sm:text-3xl text-center font-medium w-fit">
-          {children}
-        </h2>
-        <ArrowBigDown className="text-primary fill-primary h-10 w-8" />
-      </div>
-    </>
-  )
-}
-
-function HighlightsSubTitle({ children }: PropsWithChildren) {
-  return (
-    <>
-      <h3 className="text-3xl sm:text-[2.5rem] text-center font-medium">
-        {children}
-      </h3>
-    </>
-  )
-}
-
-type AboutItemProps = {
-  cardImgSrc: string
-  tittle: string
-  descriptions: string[]
-}
-
-function AboutItem({ cardImgSrc, tittle, descriptions }: AboutItemProps) {
-  return (
-    <div className="sm:w-fit flex flex-col gap-4 sm:mx-5 my-4 px-5 sm:px-0">
-      <Image
-        src={cardImgSrc}
-        alt={tittle}
-        width={690}
-        height={409}
-        sizes="100%"
-        priority={true}
-        className="w-full sm:w-[24rem]"
-      />
-      <p className="uppercase text-primary font-medium text-center text-xl sm:text-2xl">
-        {tittle}
-      </p>
-      <ul className="list-none">
-        {descriptions.map((value, idx) => {
-          return (
-            <li
-              key={idx}
-              className="max-w-full sm:max-w-[24rem] my-2 sm:my-3 text-base sm:text-xl text-center"
-            >
-              {value}
-            </li>
-          )
-        })}
-      </ul>
-    </div>
-  )
-}
-
-type HowItWorksItemProps = {
-  itemImgSrc: string
-} & PropsWithChildren
-
-function HowItWorksItem({ itemImgSrc, children }: HowItWorksItemProps) {
-  return (
-    <div className="w-40 sm:w-[11rem] gap-2 flex mx-4 text-base sm:text-xl flex-col items-center sm:gap-4">
-      <div
-        className="size-16 sm:size-20 bg-center bg-cover"
-        style={{ backgroundImage: `url('${itemImgSrc}')` }}
-      />
-      <span className="text-center">{children}</span>
-    </div>
   )
 }
