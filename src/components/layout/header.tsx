@@ -12,7 +12,7 @@ export function Header() {
   }
 
   return (
-    <header className="px-6 absolute top-0 left-0 right-0 z-10 border-b border-white/20">
+    <header className="px-6 fixed top-0 left-0 right-0 z-10 bg-background border-b border-white/20">
       <div className="mx-auto w-[65rem] sm:h-[5rem] py-3 sm:py-2 max-w-full flex justify-between items-center gap-2">
         <Link href={'/'} className="flex items-center gap-2">
           <SALogo className="text-primary sm:size-12 size-10" />
