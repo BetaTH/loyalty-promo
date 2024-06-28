@@ -8,7 +8,7 @@ export function Header() {
   const router = useRouter()
   async function handleLogout() {
     await fetch('/api/logout', { method: 'GET' })
-    router.replace('/login')
+    router.replace('/')
   }
 
   return (

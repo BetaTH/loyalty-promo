@@ -3,28 +3,10 @@ import { IconGitHub } from '../../svg-components/icon-github'
 import { SocialButton } from '../../social-button'
 import Image from 'next/image'
 import { FooterList } from './footer-list'
+import { contactItems } from '@/lib/const/footer-contact'
+import { legalItens } from '@/lib/const/footer-legal'
 
 export function Footer() {
-  const contactItems = [
-    {
-      name: 'Instagram',
-      href: '',
-    },
-    {
-      name: 'Whatsapp',
-      href: '',
-    },
-  ]
-  const legalItens = [
-    {
-      name: 'Politica de Privacidade',
-      href: '',
-    },
-    {
-      name: 'Termos e Condições',
-      href: '',
-    },
-  ]
   return (
     <footer className="p-6 sm:p-8 bg-background border-t border-primary">
       <div className="mx-auto w-[65rem] max-w-full flex items-center flex-col gap-5">

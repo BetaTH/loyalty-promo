@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import { getSession, updateSessionMiddleware } from './lib/sessions'
 
-const publicRoutes = ['/login', '/admin/login', '/landing']
+const publicRoutes = ['/', '/admin/login', '/landing']
 
 async function hasAdmin(baseUrl: string): Promise<{ adminExists: boolean }> {
   const res = await fetch(`${baseUrl}/api/admin/exists`)
@@ -46,7 +46,7 @@ export async function middleware(req: NextRequest) {
         }
         return NextResponse.redirect(new URL('/admin/login', req.nextUrl))
       }
-      return NextResponse.redirect(new URL('/login', req.nextUrl))
+      return NextResponse.redirect(new URL('/', req.nextUrl))
     }
     return NextResponse.next()
   }
@@ -63,8 +63,8 @@ export async function middleware(req: NextRequest) {
     }
   }
   if (session.role === 'COMMON') {
-    if (path === '/login') {
-      return NextResponse.redirect(new URL('/', req.nextUrl))
+    if (path === '/') {
+      return NextResponse.redirect(new URL('/meus-pontos', req.nextUrl))
     }
     if (path.startsWith('/admin')) {
       return NextResponse.redirect(new URL('/', req.nextUrl))

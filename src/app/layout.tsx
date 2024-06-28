@@ -1,14 +1,19 @@
 import type { Metadata } from 'next'
-import { Inter, Roboto } from 'next/font/google'
+import { Inter, Play } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/components/them-provider'
 import { cn } from '@/lib/utils/cn'
 import localFont from 'next/font/local'
 import { Toaster } from '@/components/ui/toaster'
 
-const inter = Roboto({
+const inter = Inter({
   subsets: ['latin'],
-  weight: ['100', '300', '400', '500', '700', '900'],
+  variable: '--font-inter',
+})
+
+const play = Play({
+  subsets: ['latin'],
+  weight: ['400', '700'],
 })
 
 export const metadata: Metadata = {
@@ -37,9 +42,10 @@ export default function RootLayout({
       <body
         className={cn(
           'bg-background ',
-          inter.className,
+          play.className,
           bankGothic.variable,
           supermolot.variable,
+          inter.variable,
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
