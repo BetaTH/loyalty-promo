@@ -1,5 +1,6 @@
 'use client'
-import { LayoutWithFooter } from '@/components/layout/layout-with-footer'
+import { Layout } from '@/components/layout/layout'
+import { LayoutCenter } from '@/components/layout/layout-center'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -36,39 +37,45 @@ export default function AdminLogin() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [firstSignUpState])
   return (
-    <LayoutWithFooter>
-      <Card className="rounded-lg shadow-md shadow-white/10 sm:p-5 w-full sm:w-fit">
-        <CardHeader className="sm:w-96">
-          <CardTitle className="text-3xl sm:text-4xl">
-            Primeiro Acesso de Admin!
-          </CardTitle>
-          <CardDescription className="sm:text-lg">
-            Crie sua conta como administrador!
-          </CardDescription>
-        </CardHeader>
-        <form action={firstSignUpFormAction}>
-          <CardContent className="space-y-4">
-            <div className="space-y-1">
-              <Label className="sm:text-xl">Nome</Label>
-              <Input name="name" className="sm:text-2xl" type="text" />
-            </div>
-            <div className="space-y-1">
-              <Label className="sm:text-xl">email</Label>
-              <Input name="email" className="sm:text-2xl" type="text" />
-            </div>
-            <div className="space-y-1">
-              <Label className="sm:text-xl">Senha</Label>
-              <Input name="password" className="sm:text-2xl" type="password" />
-            </div>
-            <Button
-              className="w-full sm:text-xl text-black"
-              disabled={isPending}
-            >
-              Registrar
-            </Button>
-          </CardContent>
-        </form>
-      </Card>
-    </LayoutWithFooter>
+    <Layout>
+      <LayoutCenter>
+        <Card className="rounded-lg shadow-md shadow-white/10 sm:p-5 w-full sm:w-fit">
+          <CardHeader className="sm:w-96">
+            <CardTitle className="text-3xl sm:text-4xl">
+              Primeiro Acesso de Admin!
+            </CardTitle>
+            <CardDescription className="sm:text-lg">
+              Crie sua conta como administrador!
+            </CardDescription>
+          </CardHeader>
+          <form action={firstSignUpFormAction}>
+            <CardContent className="space-y-4">
+              <div className="space-y-1">
+                <Label className="sm:text-xl">Nome</Label>
+                <Input name="name" className="sm:text-2xl" type="text" />
+              </div>
+              <div className="space-y-1">
+                <Label className="sm:text-xl">email</Label>
+                <Input name="email" className="sm:text-2xl" type="text" />
+              </div>
+              <div className="space-y-1">
+                <Label className="sm:text-xl">Senha</Label>
+                <Input
+                  name="password"
+                  className="sm:text-2xl"
+                  type="password"
+                />
+              </div>
+              <Button
+                className="w-full sm:text-xl text-black"
+                disabled={isPending}
+              >
+                Registrar
+              </Button>
+            </CardContent>
+          </form>
+        </Card>
+      </LayoutCenter>
+    </Layout>
   )
 }

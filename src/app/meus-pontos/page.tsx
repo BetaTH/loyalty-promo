@@ -1,4 +1,5 @@
-import { LayoutWithFooter } from '@/components/layout/layout-with-footer'
+import { Layout } from '@/components/layout/layout'
+import { LayoutCenter } from '@/components/layout/layout-center'
 import {
   Card,
   CardContent,
@@ -17,8 +18,8 @@ export default async function MeusPontos() {
   const { customer, shakeCount } = result!
   const count = Array.from({ length: 10 }, (_, i) => i + 1)
   return (
-    <LayoutWithFooter withHeader>
-      <div className="w-full h-dvh flex items-center justify-center">
+    <Layout>
+      <LayoutCenter>
         <Card className="max-w-full w-[21.25rem] sm:rounded-2xl rounded-xl sm:w-[40.5rem] sm:p-6 p-4 gap-6 sm:gap-12 flex flex-col shadow-md border border-gray-200/20 shadow-white/10">
           <Image
             src="./logo-sa.svg"
@@ -52,7 +53,7 @@ export default async function MeusPontos() {
             })}
           </CardContent>
         </Card>
-      </div>
-    </LayoutWithFooter>
+      </LayoutCenter>
+    </Layout>
   )
 }

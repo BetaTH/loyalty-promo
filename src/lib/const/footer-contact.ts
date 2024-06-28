@@ -1,10 +1,10 @@
 export const contactItems = [
   {
-    name: 'Instagram',
-    href: '',
+    name: 'Whatsapp',
+    href: 'https://wa.me/+558699144789',
   },
   {
-    name: 'Whatsapp',
-    href: '',
+    name: 'Instagram',
+    href: 'https://www.instagram.com/sasuplementhe/',
   },
 ]

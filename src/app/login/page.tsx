@@ -1,5 +1,5 @@
 'use client'
-import { LayoutWithFooter } from '@/components/layout/layout-with-footer'
+import { LayoutWithFooter } from '@/components/layout/layout'
 import { Button } from '@/components/ui/button'
 import {
   Card,

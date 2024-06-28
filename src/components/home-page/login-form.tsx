@@ -26,18 +26,23 @@ export function LoginForm() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signInState])
   return (
-    <form className="space-y-5" action={signInFormAction}>
-      <div className="space-y-1">
-        <Label className="sm:text-xl ">Email</Label>
-        <Input name="email" className="sm:text-2xl" required />
+    <div className="flex flex-col w-full sm:sm:w-[23.24rem] p-5 py-8 bg-black sm:p-8 rounded-xl sm:rounded-lg shadow-md shadow-white/10">
+      <div className="space-y-5">
+        <p className="sm:text-2xl text-xl font-normal">Já Possui Cadastro?</p>
+        <form className="space-y-5" action={signInFormAction}>
+          <div className="space-y-1">
+            <Label className="sm:text-xl ">Email</Label>
+            <Input name="email" className="sm:text-2xl" required />
+          </div>
+          <div className="space-y-1">
+            <Label className="sm:text-xl ">CPF</Label>
+            <Input name="cpf" className="sm:text-2xl" required />
+          </div>
+          <Button className="w-full sm:text-xl text-black" disabled={isPending}>
+            Entrar
+          </Button>
+        </form>
       </div>
-      <div className="space-y-1">
-        <Label className="sm:text-xl ">CPF</Label>
-        <Input name="cpf" className="sm:text-2xl" required />
-      </div>
-      <Button className="w-full sm:text-xl text-black" disabled={isPending}>
-        Entrar
-      </Button>
-    </form>
+    </div>
   )
 }
