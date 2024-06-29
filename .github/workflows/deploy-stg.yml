@@ -1,14 +1,14 @@
-name: Deploy
+name: Deploy Stg
 on:
   push:
     paths:
       - ./prisma/migrations/** # Only run this workflow when migrations are updated
     branches:
-      - main
+      - staging
   workflow_dispatch:
 
 jobs:
-  deploy:
+  deploy-stg:
     runs-on: ubuntu-latest
     environment: production
     steps:
@@ -30,5 +30,5 @@ jobs:
       - name: Apply all pending migrations to the database
         run: pnpm dlx prisma migrate deploy
         env:
-          DATABASE_URL: postgres://${{ secrets.DATABASE_USERNAME }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT }}/postgres?schema=public
-          DIRECT_URL: postgres://${{ secrets.DATABASE_USERNAME }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT }}/postgres?schema=public
+          DATABASE_URL: postgres://${{ secrets.DATABASE_USERNAME }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT }}/postgres?schema=staging
+          DIRECT_URL: postgres://${{ secrets.DATABASE_USERNAME }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT }}/postgres?schema=staging
