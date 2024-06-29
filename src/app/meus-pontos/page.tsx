@@ -15,7 +15,7 @@ export const dynamic = 'force-dynamic'
 
 export default async function MeusPontos() {
   const result = await getCustomerStats()!
-  const { customer, shakeCount } = result!
+  const { customer, smoothieCount } = result!
   const count = Array.from({ length: 10 }, (_, i) => i + 1)
   return (
     <Layout>
@@ -37,7 +37,7 @@ export default async function MeusPontos() {
               Cartão Fidelidade:
             </CardDescription>
             <CardDescription className="text-3xl/6 sm:text-5xl mt-1 sm:mt-2 font-supermoloc text-primary">
-              SHAKE
+              SMOOTHIE
             </CardDescription>
           </CardHeader>
           <CardContent className="grid w-fit grid-cols-5 gap-3 sm:gap-5 mx-auto p-0">
@@ -46,7 +46,7 @@ export default async function MeusPontos() {
                 <div
                   key={idx}
                   className={cn('size-10 sm:size-16 bg-white rounded-full', {
-                    'bg-primary': value <= shakeCount,
+                    'bg-primary': value <= smoothieCount,
                   })}
                 />
               )

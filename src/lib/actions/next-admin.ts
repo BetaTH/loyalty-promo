@@ -3,8 +3,8 @@
 import { ActionParams, ModelName } from '@premieroctet/next-admin'
 import { SearchPaginatedResourceParams } from '@premieroctet/next-admin/dist/actions'
 import { getSession } from '../sessions'
-import { submitShakePurchase } from './submit-shake-purchase'
-import { submitShakeAward } from './submit-shake-award'
+import { submitSmoothiePurchase } from './submit-smoothie-purchase'
+import { submitSmoothieAward } from './submit-smoothie-award'
 import { NextAdminRepository } from '../../server/prisma/repositories/next-admin-repository'
 import { CustomersRepository } from '@/server/prisma/repositories/customers-repository'
 
@@ -25,30 +25,30 @@ export const submitFormAction = async (
 
   if (params.params?.includes('purchase') && params.params?.includes('new')) {
     const type = formData.get('type')
-    if (type === 'shake') {
-      return submitShakePurchase(
+    if (type === 'smoothie') {
+      return submitSmoothiePurchase(
         params,
         formData,
         customersRepository,
         nextAdminRepository,
       )
     }
-    if (type === 'comum') {
+    if (type === 'suplemento') {
       return nextAdminRepository.submitForm(params, formData)
     }
   }
 
   if (params.params?.includes('award') && params.params?.includes('new')) {
     const type = formData.get('type')
-    if (type === 'shake') {
-      return submitShakeAward(
+    if (type === 'smoothie') {
+      return submitSmoothieAward(
         params,
         formData,
         customersRepository,
         nextAdminRepository,
       )
     }
-    if (type === 'comum') {
+    if (type === 'suplemento') {
       return nextAdminRepository.submitForm(params, formData)
     }
   }

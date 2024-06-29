@@ -28,33 +28,35 @@ export class CustomersRepository {
         id,
       },
     })
-    const shakeCount = await prisma.purchase.count({
+    const smoothieCount = await prisma.purchase.count({
       where: {
         customerId: id,
-        type: 'shake',
+        type: 'smoothie',
       },
     })
-    const shakeGiftCount = await prisma.purchase.count({
+    const smoothieGiftCount = await prisma.purchase.count({
       where: {
         customerId: id,
-        type: 'shake',
+        type: 'smoothie',
       },
     })
 
-    const adjustedShakeCount = shakeCount - shakeGiftCount * 10
-    const finalShakeCount =
-      adjustedShakeCount > 10 ? adjustedShakeCount % 10 : adjustedShakeCount
+    const adjustedSmoothieCount = smoothieCount - smoothieGiftCount * 10
+    const finalSmoothieCount =
+      adjustedSmoothieCount > 10
+        ? adjustedSmoothieCount % 10
+        : adjustedSmoothieCount
     return {
       user: {
         name: user!.name,
         email: user!.email,
         phoneNumber: user!.phoneNumber,
       },
-      shakeCount: finalShakeCount,
+      smoothieCount: finalSmoothieCount,
     }
   }
 
-  async getShakePurchaseCountInARound(
+  async getSmoothiePurchaseCountInARound(
     customerId: number,
     initRoundDate: Date,
     finalRoundDate: Date,
@@ -62,7 +64,7 @@ export class CustomersRepository {
     return await prisma.purchase.count({
       where: {
         customerId: Number(customerId),
-        type: 'shake',
+        type: 'smoothie',
         createdAt: {
           gte: initRoundDate,
           lte: finalRoundDate,
@@ -71,22 +73,22 @@ export class CustomersRepository {
     })
   }
 
-  async getLastShakeAwardRound(customerId: number) {
-    const { lastShakeAwardRound } = (await prisma.customer.findUnique({
+  async getLastSmoothieAwardRound(customerId: number) {
+    const { lastSmoothieAwardRound } = (await prisma.customer.findUnique({
       where: {
         id: Number(customerId),
       },
       select: {
-        lastShakeAwardRound: true,
+        lastSmoothieAwardRound: true,
       },
     }))!
-    return lastShakeAwardRound
+    return lastSmoothieAwardRound
   }
 
   async getCustomerAward(
     customerId: number,
     awardRoundStartedAt: Date,
-    type: 'shake' | 'comum',
+    type: 'smoothie' | 'suplemento',
   ) {
     const award = await prisma.award.findFirst({
       where: {

@@ -22,8 +22,8 @@ export const options: NextAdminOptions = {
         purchase: 'Compras',
         award: ' Prêmios',
         createdAt: 'Data de Cadastro',
-        lastCommonAwardRound: 'Último Ciclo de Prêmio Comum',
-        lastShakeAwardRound: 'Último Ciclo de Prêmio Shake',
+        lastCommonAwardRound: 'Último Ciclo de Prêmio Suplemento',
+        lastSmoothieAwardRound: 'Último Ciclo de Prêmio Smoothie',
       },
       list: {
         display: [
@@ -50,7 +50,7 @@ export const options: NextAdminOptions = {
                 .split(/[\s,]+/)[0]
             },
           },
-          lastShakeAwardRound: {
+          lastSmoothieAwardRound: {
             formatter: (date) => {
               return new Date(date as unknown as string)
                 ?.toLocaleString('pt-BR')

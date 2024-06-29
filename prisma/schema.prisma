@@ -20,8 +20,8 @@ datasource db {
 }
 
 enum Type {
-  shake
-  comum
+  smoothie
+  suplemento
 }
 
 model AdminUser {
@@ -34,14 +34,14 @@ model AdminUser {
 }
 
 model Customer {
-  id                   Int       @id @default(autoincrement())
-  name                 String    @map("nome")
-  email                String    @unique
-  cpf                  String    @unique
-  phoneNumber          String    @map("telefone")
-  createdAt            DateTime  @default(now()) @map("data_cadastro")
-  lastShakeAwardRound  DateTime? @map("ultimo_ciclo_de_premio_shake")
-  lastCommonAwardRound DateTime? @map("ultimo_ciclo_de_premio_comum")
+  id                     Int       @id @default(autoincrement())
+  name                   String    @map("nome")
+  email                  String    @unique
+  cpf                    String    @unique
+  phoneNumber            String    @map("telefone")
+  createdAt              DateTime  @default(now()) @map("data_cadastro")
+  lastSmoothieAwardRound DateTime? @map("ultimo_ciclo_de_premio_smoothie")
+  lastCommonAwardRound   DateTime? @map("ultimo_ciclo_de_premio_suplemento")
 
   purchase Purchase[]
   award    Award[]
@@ -52,7 +52,7 @@ model Customer {
 model Purchase {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now()) @map("data_compra")
-  type      Type     @default(shake) @map("tipo")
+  type      Type     @map("tipo")
   amount    Float    @map("valor")
 
   customer   Customer @relation(fields: [customerId], references: [id])
@@ -63,7 +63,7 @@ model Purchase {
 
 model Award {
   id                  Int      @id @default(autoincrement())
-  type                Type     @default(shake) @map("tipo")
+  type                Type     @map("tipo")
   awardRoundStartedAt DateTime @map("data_inicio_do_ciclo_de_premio")
   awardRoundEndedAt   DateTime @default(now()) @map("data_fim_do_ciclo_de_premio")
 

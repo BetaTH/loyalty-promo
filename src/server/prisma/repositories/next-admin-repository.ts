@@ -12,7 +12,7 @@ import {
 } from '@premieroctet/next-admin/dist/actions'
 import { PrismaClient } from '@prisma/client'
 
-type UpdateShakeAwardRoundWithPurchaseProps = {
+type UpdateSmoothieAwardRoundWithPurchaseProps = {
   params: ActionParams
   formData: FormData
   customerId: number
@@ -50,26 +50,26 @@ export class NextAdminRepository {
     )
   }
 
-  async updateShakeAwardRoundWithPurchase({
+  async updateSmoothieAwardRoundWithPurchase({
     customerId,
     createdAt,
     formData,
     params,
-  }: UpdateShakeAwardRoundWithPurchaseProps) {
+  }: UpdateSmoothieAwardRoundWithPurchaseProps) {
     return prismaClient.$transaction(async (tx) => {
       await tx.customer.update({
         where: {
           id: customerId,
         },
         data: {
-          lastShakeAwardRound: createdAt,
+          lastSmoothieAwardRound: createdAt,
         },
       })
       return this.submitForm(params, formData, tx)
     })
   }
 
-  async updateShakeAwardRoundWithAward(
+  async updateSmoothieAwardRoundWithAward(
     params: ActionParams,
     formData: FormData,
     customerId: number,
@@ -80,7 +80,7 @@ export class NextAdminRepository {
           id: customerId,
         },
         data: {
-          lastShakeAwardRound: null,
+          lastSmoothieAwardRound: null,
         },
       })
       return this.submitForm(params, formData, tx)

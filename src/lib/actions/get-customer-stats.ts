@@ -26,32 +26,35 @@ export async function getCustomerStats() {
     phoneNumber: customer.phoneNumber,
   }
 
-  const lastShakeAwardRound = customer.lastShakeAwardRound
+  const lastSmoothieAwardRound = customer.lastSmoothieAwardRound
 
-  if (lastShakeAwardRound === null) {
+  if (lastSmoothieAwardRound === null) {
     return {
       customer: customerResponse,
-      shakeCount: 0,
+      smoothieCount: 0,
     }
   }
   const dateNow = new Date()
-  const finalShakeAwardRound = getFinalAwardRoundDate(lastShakeAwardRound, 30)
+  const finalSmoothieAwardRound = getFinalAwardRoundDate(
+    lastSmoothieAwardRound,
+    30,
+  )
   const purchaseCountInARound =
-    await customersRepository.getShakePurchaseCountInARound(
+    await customersRepository.getSmoothiePurchaseCountInARound(
       customerId,
-      lastShakeAwardRound,
-      finalShakeAwardRound,
+      lastSmoothieAwardRound,
+      finalSmoothieAwardRound,
     )
 
-  if (purchaseCountInARound < 10 && dateNow > finalShakeAwardRound) {
+  if (purchaseCountInARound < 10 && dateNow > finalSmoothieAwardRound) {
     return {
       customer: customerResponse,
-      shakeCount: 0,
+      smoothieCount: 0,
     }
   }
 
   return {
     customer: customerResponse,
-    shakeCount: purchaseCountInARound,
+    smoothieCount: purchaseCountInARound,
   }
 }

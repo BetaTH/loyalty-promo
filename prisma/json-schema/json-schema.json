@@ -45,7 +45,7 @@
           "type": "string",
           "format": "date-time"
         },
-        "lastShakeAwardRound": {
+        "lastSmoothieAwardRound": {
           "type": [
             "string",
             "null"
@@ -91,10 +91,9 @@
         },
         "type": {
           "type": "string",
-          "default": "shake",
           "enum": [
-            "shake",
-            "comum"
+            "smoothie",
+            "suplemento"
           ]
         },
         "amount": {
@@ -105,6 +104,7 @@
         }
       },
       "required": [
+        "type",
         "amount",
         "customerId"
       ]
@@ -117,10 +117,9 @@
         },
         "type": {
           "type": "string",
-          "default": "shake",
           "enum": [
-            "shake",
-            "comum"
+            "smoothie",
+            "suplemento"
           ]
         },
         "awardRoundStartedAt": {
@@ -136,6 +135,7 @@
         }
       },
       "required": [
+        "type",
         "awardRoundStartedAt",
         "customerId"
       ]
