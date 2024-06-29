@@ -2,7 +2,6 @@ import { Button } from '@/components/ui/button'
 import { SiInstagram, SiWhatsapp } from '@icons-pack/react-simple-icons'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Footer } from '@/components/layout/footer'
 import {
   Accordion,
   AccordionContent,
@@ -34,7 +33,7 @@ export default function Home() {
 
       {/* HOW IT WORKS */}
       <section
-        id="how-it-works"
+        id="como-participar"
         className="-mt-14 sm:-mt-[5rem] sm:pt-[7rem] py-24 flex flex-col items-center justify-center gap-3 sm:py-8 sm:px-10 px-5"
       >
         <HighlightsTitle>COMO FUNCIONA</HighlightsTitle>
@@ -56,7 +55,10 @@ export default function Home() {
       {/* //------// */}
 
       {/* MESSAGE - WHATSAPP */}
-      <section className="flex flex-col items-center justify-center bg-secondary w-full min-h-80 gap-5 py-10">
+      <section
+        id="vip"
+        className="flex flex-col items-center justify-center bg-secondary w-full min-h-80 gap-5 py-24"
+      >
         <h2 className="text-3xl w-[80%] sm:w-full sm:text-[2.5rem] text-white text-center font-semibold">
           PARTICIPE TAMBÉM DO NOSSO <br className="hidden sm:block" />{' '}
           <span className="text-primary">GRUPO VIP</span>
@@ -84,7 +86,10 @@ export default function Home() {
       {/* //------// */}
 
       {/* ABOUT */}
-      <section className="py-10 flex flex-col items-center justify-center gap-3 sm:py-8 sm:px-10 px-5">
+      <section
+        id="sobre"
+        className="-mt-14 sm:-mt-[5rem] sm:pt-[7rem] py-24 flex flex-col items-center justify-center gap-3 sm:py-8 sm:px-10 px-5"
+      >
         <HighlightsTitle>SOBRE O PROGRAMA</HighlightsTitle>
         <HighlightsSubTitle>
           DESCUBRA O QUE VOCÊ <span className="text-primary">GANHA!</span>
@@ -150,7 +155,7 @@ export default function Home() {
       {/* //------// */}
 
       {/* FAQS */}
-      <section className="bg-background sm:px-10 px-5">
+      <section id="faqs" className="bg-background sm:px-10 px-5">
         <div className="w-[65rem] max-w-full mx-auto sm:py-20 py-10 flex flex-col gap-5 sm:gap-10">
           <h2 className="sm:text-4xl text-2xl font-bold">FAQ</h2>
           <Accordion type="single" collapsible className="w-full">

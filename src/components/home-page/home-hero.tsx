@@ -8,7 +8,7 @@ export function HomeHero() {
   const HERO_IMG_SCALE = 0.24
   function scrollToBiome() {
     document
-      ?.getElementById('how-it-works')
+      ?.getElementById('como-participar')
       ?.scrollIntoView({ behavior: 'smooth' })
   }
   return (

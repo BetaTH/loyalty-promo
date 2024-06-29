@@ -1,5 +1,6 @@
 'use server'
 import { z } from 'zod'
+import { createServerAction } from 'zsa'
 
 import { CustomersRepository } from '@/server/prisma/repositories/customers-repository'
 
@@ -10,31 +11,17 @@ const signInDataSchema = z.object({
   cpf: z.string(),
 })
 
-interface SignInState {
-  ok?: boolean | undefined
-  status?: number | undefined
-  message?: string | undefined
-}
+export const signIn = createServerAction()
+  .input(signInDataSchema, {
+    type: 'formData',
+  })
+  .handler(handler)
 
-export async function signIn(
-  _: SignInState,
-  formData: FormData,
-): Promise<SignInState> {
-  const rawFormData = {
-    email: formData.get('email'),
-    cpf: formData.get('cpf'),
-  }
-
-  const validatedData = signInDataSchema.safeParse(rawFormData)
-  if (!validatedData.success) {
-    return {
-      ok: false,
-      status: 400,
-      message: 'Dados enviados de forma incorreta',
-    }
-  }
-
-  const { email, cpf } = validatedData.data
+async function handler({
+  input: { email, cpf },
+}: {
+  input: z.infer<typeof signInDataSchema>
+}) {
   const customersRepository = new CustomersRepository()
   const customer = await customersRepository.getCustomerByEmailAndCPF(
     email,
