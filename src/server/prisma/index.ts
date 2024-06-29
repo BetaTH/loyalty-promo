@@ -17,4 +17,4 @@ export type TransactionPrismaClient = Omit<
   PrismaClient,
   '$connect' | '$disconnect' | '$on' | '$transaction' | '$use' | '$extends'
 >
-if (process.env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma
+if (env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma

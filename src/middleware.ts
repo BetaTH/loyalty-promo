@@ -12,7 +12,7 @@ async function hasAdmin(baseUrl: string): Promise<{ adminExists: boolean }> {
     return data
   }
   return {
-    adminExists: true,
+    adminExists: false,
   }
 }
 
