@@ -18,6 +18,7 @@ export function FooterList({ title, listItems }: FooterListProps) {
             <Link
               href={item.href}
               className="sm:text-base text-sm hover:text-primary duration-150"
+              target="_blank"
             >
               {item.name}
             </Link>

@@ -13,7 +13,6 @@ export function LoginForm() {
   const { toast } = useToast()
   const { isPending, executeFormAction } = useServerAction(signIn, {
     onError: ({ err }) => {
-      console.log(err.code)
       if (err.name === 'ZodError') {
         toast({ title: 'Erro de validação', variant: 'destructive' })
       } else {
