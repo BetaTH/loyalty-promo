@@ -12,8 +12,8 @@ importers:
         specifier: ^9.5.0
         version: 9.5.0(react@18.3.1)
       '@premieroctet/next-admin':
-        specifier: ^4.4.1
-        version: 4.4.1(@prisma/client@5.14.0(prisma@5.14.0))(@types/react-dom@18.3.0)(@types/react@18.3.3)(monaco-editor@0.49.0)(prisma-json-schema-generator@5.1.1)(prisma@5.14.0)
+        specifier: ^4.4.4
+        version: 4.4.4(@prisma/client@5.14.0(prisma@5.14.0))(@types/react-dom@18.3.0)(@types/react@18.3.3)(monaco-editor@0.49.0)(prisma-json-schema-generator@5.1.1)(prisma@5.14.0)
       '@prisma/client':
         specifier: 5.14.0
         version: 5.14.0(prisma@5.14.0)
@@ -415,8 +415,8 @@ packages:
     resolution: {integrity: sha512-cq8o4cWH0ibXh9VGi5P20Tu9XF/0fFXl9EUinr9QfTM7a7p0oTA4iJRCQWppXR1Pg8dSM0UCItCkPwsk9qWWYA==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
 
-  '@premieroctet/next-admin@4.4.1':
-    resolution: {integrity: sha512-jUeJEPVbbiSR9CKwDGR8JQ5oJbg+P9GJzLZz4vD/V49M5OXva9S7pmObrDDJpmL3eXgLGZo/BRfOYxzsc+XKbw==}
+  '@premieroctet/next-admin@4.4.4':
+    resolution: {integrity: sha512-AHN+5i/nbt++QeKm5/P2YUJMLLNPZOPNXpVqShxms9si5ygamT4ABkQH26eDr7CfsAFhU6ydm1PdeZmJRdUyIg==}
     peerDependencies:
       '@prisma/client': '>=4'
       prisma: '>=4'
@@ -3025,17 +3025,17 @@ snapshots:
       react: 18.2.0
       tslib: 2.6.2
 
-  '@dnd-kit/core@6.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@dnd-kit/core@6.1.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
       '@dnd-kit/accessibility': 3.1.0(react@18.2.0)
       '@dnd-kit/utilities': 3.2.2(react@18.2.0)
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
       tslib: 2.6.2
 
-  '@dnd-kit/sortable@8.0.0(@dnd-kit/core@6.1.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)':
+  '@dnd-kit/sortable@8.0.0(@dnd-kit/core@6.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.2.0)':
     dependencies:
-      '@dnd-kit/core': 6.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@dnd-kit/core': 6.1.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@dnd-kit/utilities': 3.2.2(react@18.2.0)
       react: 18.2.0
       tslib: 2.6.2
@@ -3248,10 +3248,10 @@ snapshots:
 
   '@pkgr/core@0.1.1': {}
 
-  '@premieroctet/next-admin@4.4.1(@prisma/client@5.14.0(prisma@5.14.0))(@types/react-dom@18.3.0)(@types/react@18.3.3)(monaco-editor@0.49.0)(prisma-json-schema-generator@5.1.1)(prisma@5.14.0)':
+  '@premieroctet/next-admin@4.4.4(@prisma/client@5.14.0(prisma@5.14.0))(@types/react-dom@18.3.0)(@types/react@18.3.3)(monaco-editor@0.49.0)(prisma-json-schema-generator@5.1.1)(prisma@5.14.0)':
     dependencies:
-      '@dnd-kit/core': 6.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@dnd-kit/sortable': 8.0.0(@dnd-kit/core@6.1.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)
+      '@dnd-kit/core': 6.1.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@dnd-kit/sortable': 8.0.0(@dnd-kit/core@6.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.2.0)
       '@headlessui/react': 1.7.19(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@heroicons/react': 2.1.3(react@18.2.0)
       '@picocss/pico': 1.5.13
@@ -3262,9 +3262,9 @@ snapshots:
       '@radix-ui/react-select': 1.2.2(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-switch': 1.0.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-tooltip': 1.0.7(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@rjsf/core': 5.18.4(@rjsf/utils@5.18.4(react@18.3.1))(react@18.2.0)
+      '@rjsf/core': 5.18.4(@rjsf/utils@5.18.4(react@18.2.0))(react@18.2.0)
       '@rjsf/utils': 5.18.4(react@18.2.0)
-      '@rjsf/validator-ajv8': 5.18.4(@rjsf/utils@5.18.4(react@18.3.1))
+      '@rjsf/validator-ajv8': 5.18.4(@rjsf/utils@5.18.4(react@18.2.0))
       '@tanstack/react-table': 8.17.3(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@types/formidable': 3.4.5
       '@types/node': 18.19.33
@@ -3280,6 +3280,7 @@ snapshots:
       prisma-json-schema-generator: 5.1.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
+      tailwind-merge: 2.3.0
       typescript: 5.4.5
       util: 0.12.5
     optionalDependencies:
@@ -4121,7 +4122,7 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.24.6
 
-  '@rjsf/core@5.18.4(@rjsf/utils@5.18.4(react@18.3.1))(react@18.2.0)':
+  '@rjsf/core@5.18.4(@rjsf/utils@5.18.4(react@18.2.0))(react@18.2.0)':
     dependencies:
       '@rjsf/utils': 5.18.4(react@18.2.0)
       lodash: 4.17.21
@@ -4140,7 +4141,7 @@ snapshots:
       react: 18.2.0
       react-is: 18.3.1
 
-  '@rjsf/validator-ajv8@5.18.4(@rjsf/utils@5.18.4(react@18.3.1))':
+  '@rjsf/validator-ajv8@5.18.4(@rjsf/utils@5.18.4(react@18.2.0))':
     dependencies:
       '@rjsf/utils': 5.18.4(react@18.2.0)
       ajv: 8.14.0
@@ -4845,7 +4846,7 @@ snapshots:
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1)(eslint@8.57.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint@8.57.0)
       eslint-plugin-jsx-a11y: 6.8.0(eslint@8.57.0)
       eslint-plugin-react: 7.34.2(eslint@8.57.0)
       eslint-plugin-react-hooks: 4.6.2(eslint@8.57.0)
@@ -4880,7 +4881,7 @@ snapshots:
       enhanced-resolve: 5.16.1
       eslint: 8.57.0
       eslint-module-utils: 2.8.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1)(eslint@8.57.0))(eslint@8.57.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint@8.57.0)
       fast-glob: 3.3.2
       get-tsconfig: 4.7.5
       is-core-module: 2.13.1
@@ -4889,16 +4890,6 @@ snapshots:
       - '@typescript-eslint/parser'
       - eslint-import-resolver-node
       - eslint-import-resolver-webpack
-      - supports-color
-
-  eslint-module-utils@2.8.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint@8.57.0):
-    dependencies:
-      debug: 3.2.7
-    optionalDependencies:
-      '@typescript-eslint/parser': 6.21.0(eslint@8.57.0)(typescript@5.4.5)
-      eslint: 8.57.0
-      eslint-import-resolver-node: 0.3.9
-    transitivePeerDependencies:
       - supports-color
 
   eslint-module-utils@2.8.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1)(eslint@8.57.0))(eslint@8.57.0):
@@ -4929,33 +4920,6 @@ snapshots:
       doctrine: 2.1.0
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.8.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint@8.57.0)
-      hasown: 2.0.2
-      is-core-module: 2.13.1
-      is-glob: 4.0.3
-      minimatch: 3.1.2
-      object.fromentries: 2.0.8
-      object.groupby: 1.0.3
-      object.values: 1.2.0
-      semver: 6.3.1
-      tsconfig-paths: 3.15.0
-    optionalDependencies:
-      '@typescript-eslint/parser': 6.21.0(eslint@8.57.0)(typescript@5.4.5)
-    transitivePeerDependencies:
-      - eslint-import-resolver-typescript
-      - eslint-import-resolver-webpack
-      - supports-color
-
-  eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0):
-    dependencies:
-      array-includes: 3.1.8
-      array.prototype.findlastindex: 1.2.5
-      array.prototype.flat: 1.3.2
-      array.prototype.flatmap: 1.3.2
-      debug: 3.2.7
-      doctrine: 2.1.0
-      eslint: 8.57.0
-      eslint-import-resolver-node: 0.3.9
       eslint-module-utils: 2.8.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1)(eslint@8.57.0))(eslint@8.57.0)
       hasown: 2.0.2
       is-core-module: 2.13.1
@@ -4967,7 +4931,7 @@ snapshots:
       semver: 6.3.1
       tsconfig-paths: 3.15.0
     optionalDependencies:
-      '@typescript-eslint/parser': 7.2.0(eslint@8.57.0)(typescript@5.4.5)
+      '@typescript-eslint/parser': 6.21.0(eslint@8.57.0)(typescript@5.4.5)
     transitivePeerDependencies:
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
