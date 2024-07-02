@@ -1,21 +1,21 @@
-'use server'
+"use server";
 
-import { CustomersRepository } from '@/server/prisma/repositories/customers-repository'
-import { ActionParams } from '@premieroctet/next-admin'
-import { getFinalAwardRoundDate } from '../functions/get-final-round-date'
-import { NextAdminRepository } from '@/server/prisma/repositories/next-admin-repository'
+import { CustomersRepository } from "@/db/prisma/repositories/customers-repository";
+import { ActionParams } from "@premieroctet/next-admin";
+import { getFinalAwardRoundDate } from "../functions/get-final-round-date";
+import { NextAdminRepository } from "@/db/prisma/repositories/next-admin-repository";
 
 export const submitSmoothiePurchase = async (
   params: ActionParams,
   formData: FormData,
   customersRepository: CustomersRepository,
-  nextAdminRepository: NextAdminRepository,
+  nextAdminRepository: NextAdminRepository
 ) => {
-  const customerId = Number(formData.get('customer'))
+  const customerId = Number(formData.get("customer"));
   const lastSmoothieAwardRound =
-    await customersRepository.getLastSmoothieAwardRound(customerId)
-  const createdAt = new Date()
-  formData.append('createdAt', createdAt.toISOString())
+    await customersRepository.getLastSmoothieAwardRound(customerId);
+  const createdAt = new Date();
+  formData.append("createdAt", createdAt.toISOString());
 
   if (lastSmoothieAwardRound === null) {
     return nextAdminRepository.updateSmoothieAwardRoundWithPurchase({
@@ -23,39 +23,39 @@ export const submitSmoothiePurchase = async (
       formData,
       customerId,
       createdAt,
-    })
+    });
   }
 
   const finalSmoothieAwardRound = getFinalAwardRoundDate(
     lastSmoothieAwardRound,
-    30,
-  )
+    30
+  );
 
   const purchaseCountInARound =
     await customersRepository.getSmoothiePurchaseCountInARound(
       customerId,
       lastSmoothieAwardRound,
-      finalSmoothieAwardRound,
-    )
+      finalSmoothieAwardRound
+    );
 
   if (purchaseCountInARound >= 10) {
     const award = await customersRepository.getCustomerAward(
       customerId,
       lastSmoothieAwardRound,
-      'smoothie',
-    )
+      "smoothie"
+    );
     if (award === null) {
       return {
         created: false,
-        error: 'Cliente elegível, adicionar prêmio',
-      }
+        error: "Cliente elegível, adicionar prêmio",
+      };
     }
     return nextAdminRepository.updateSmoothieAwardRoundWithPurchase({
       params,
       formData,
       customerId,
       createdAt,
-    })
+    });
   }
   if (createdAt > finalSmoothieAwardRound) {
     return nextAdminRepository.updateSmoothieAwardRoundWithPurchase({
@@ -63,7 +63,7 @@ export const submitSmoothiePurchase = async (
       formData,
       customerId,
       createdAt,
-    })
+    });
   }
-  return nextAdminRepository.submitForm(params, formData)
-}
+  return nextAdminRepository.submitForm(params, formData);
+};
