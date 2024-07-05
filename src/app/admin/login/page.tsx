@@ -1,7 +1,10 @@
 'use client'
+import { useRouter } from 'next/navigation'
+import { useServerAction } from 'zsa-react'
+
 import { Layout } from '@/components/layout/layout'
 import { LayoutCenter } from '@/components/layout/layout-center'
-import { Button } from '@/components/ui/button'
+import { ButtonLoading } from '@/components/ui/button-loading'
 import {
   Card,
   CardContent,
@@ -9,30 +12,34 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { signIn } from '@/lib/actions/auth-admin-user'
 import { useToast } from '@/lib/hooks/use-toast'
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
-import { useFormState } from 'react-dom'
+
 export default function AdminLogin() {
   const router = useRouter()
   const { toast } = useToast()
 
-  const [signInState, signInFormAction, isPending] = useFormState(signIn, {})
+  const { isPending, executeFormAction } = useServerAction(signIn, {
+    onError: ({ err }) => {
+      if (err.name === 'ZodError') {
+        toast({ title: 'Erro de validação', variant: 'destructive' })
+      }
+      else {
+        toast({ title: 'Erro Interno no Servidor', variant: 'destructive' })
+      }
+    },
+    onSuccess: ({ data }) => {
+      if (data.ok === false) {
+        toast({ title: data.message, variant: 'destructive' })
+      }
+      if (data.ok === true) {
+        router.replace('/admin')
+      }
+    },
+  })
 
-  useEffect(() => {
-    if (signInState.ok === false) {
-      toast({ title: signInState.message, variant: 'destructive' })
-    }
-    if (signInState.ok === true) {
-      router.replace('/admin')
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [signInState])
   return (
     <Layout withHeader={false}>
       <LayoutCenter>
@@ -45,10 +52,10 @@ export default function AdminLogin() {
               Faça login com usuário e senha!
             </CardDescription>
           </CardHeader>
-          <form action={signInFormAction}>
+          <form action={executeFormAction}>
             <CardContent className="space-y-4">
               <div className="space-y-1">
-                <Label className="sm:text-xl">email</Label>
+                <Label className="sm:text-xl">Email</Label>
                 <Input name="email" className="sm:text-2xl" type="text" />
               </div>
               <div className="space-y-1">
@@ -59,12 +66,13 @@ export default function AdminLogin() {
                   type="password"
                 />
               </div>
-              <Button
+              <ButtonLoading
                 className="w-full sm:text-xl text-black"
                 disabled={isPending}
+                isLoading={isPending}
               >
                 Entrar
-              </Button>
+              </ButtonLoading>
             </CardContent>
           </form>
         </Card>

@@ -15,7 +15,8 @@ export function LoginForm() {
     onError: ({ err }) => {
       if (err.name === 'ZodError') {
         toast({ title: 'Erro de validação', variant: 'destructive' })
-      } else {
+      }
+      else {
         toast({ title: 'Erro Interno no Servidor', variant: 'destructive' })
       }
     },
