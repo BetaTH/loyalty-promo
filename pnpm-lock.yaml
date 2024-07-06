@@ -44,6 +44,9 @@ importers:
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
+      framer-motion:
+        specifier: ^11.2.13
+        version: 11.2.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       jose:
         specifier: ^5.4.0
         version: 5.4.0
@@ -1815,6 +1818,20 @@ packages:
   formidable@3.5.1:
     resolution: {integrity: sha512-WJWKelbRHN41m5dumb0/k8TeAx7Id/y3a+Z7QfhxP/htI9Js5zYaEDtG8uMgG0vM0lOlqnmjE99/kfpOYi/0Og==}
 
+  framer-motion@11.2.13:
+    resolution: {integrity: sha512-AyIeegfkXlkX1lWEudRYsJlC+0A59cE8oFK9IsN9bUQzxLwcvN3AEaYaznkELiWlHC7a0eD7pxsYQo7BC05S5A==}
+    peerDependencies:
+      '@emotion/is-prop-valid': '*'
+      react: ^18.0.0
+      react-dom: ^18.0.0
+    peerDependenciesMeta:
+      '@emotion/is-prop-valid':
+        optional: true
+      react:
+        optional: true
+      react-dom:
+        optional: true
+
   fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
 
@@ -3262,9 +3279,9 @@ snapshots:
       '@radix-ui/react-select': 1.2.2(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-switch': 1.0.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-tooltip': 1.0.7(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@rjsf/core': 5.18.4(@rjsf/utils@5.18.4(react@18.2.0))(react@18.2.0)
+      '@rjsf/core': 5.18.4(@rjsf/utils@5.18.4(react@18.3.1))(react@18.2.0)
       '@rjsf/utils': 5.18.4(react@18.2.0)
-      '@rjsf/validator-ajv8': 5.18.4(@rjsf/utils@5.18.4(react@18.2.0))
+      '@rjsf/validator-ajv8': 5.18.4(@rjsf/utils@5.18.4(react@18.3.1))
       '@tanstack/react-table': 8.17.3(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@types/formidable': 3.4.5
       '@types/node': 18.19.33
@@ -4122,7 +4139,7 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.24.6
 
-  '@rjsf/core@5.18.4(@rjsf/utils@5.18.4(react@18.2.0))(react@18.2.0)':
+  '@rjsf/core@5.18.4(@rjsf/utils@5.18.4(react@18.3.1))(react@18.2.0)':
     dependencies:
       '@rjsf/utils': 5.18.4(react@18.2.0)
       lodash: 4.17.21
@@ -4141,7 +4158,7 @@ snapshots:
       react: 18.2.0
       react-is: 18.3.1
 
-  '@rjsf/validator-ajv8@5.18.4(@rjsf/utils@5.18.4(react@18.2.0))':
+  '@rjsf/validator-ajv8@5.18.4(@rjsf/utils@5.18.4(react@18.3.1))':
     dependencies:
       '@rjsf/utils': 5.18.4(react@18.2.0)
       ajv: 8.14.0
@@ -5134,6 +5151,13 @@ snapshots:
       dezalgo: 1.0.4
       hexoid: 1.0.0
       once: 1.4.0
+
+  framer-motion@11.2.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      tslib: 2.6.2
+    optionalDependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   fs.realpath@1.0.0: {}
 
