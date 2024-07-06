@@ -18,7 +18,7 @@ export const submitSmoothieAward = async (
       new Date()
     );
 
-  let updatedSmoothieCard = {
+  const updatedSmoothieCard = {
     ...smoothieCard,
     roundStartAt: null,
     roundEndAt: null,

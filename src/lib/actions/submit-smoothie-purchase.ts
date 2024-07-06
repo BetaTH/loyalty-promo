@@ -22,10 +22,11 @@ export const submitSmoothiePurchase = async (
     );
   formData.append("createdAt", createdAt.toISOString());
 
-  let updatedSmoothieCard = {
+  const updatedSmoothieCard = {
     ...smoothieCard,
     roundStartAt: createdAt,
     roundEndAt: getFinalAwardRoundDate(createdAt, 30),
+    points: 1,
   };
 
   if (
@@ -33,7 +34,6 @@ export const submitSmoothiePurchase = async (
     smoothieCard.roundEndAt === null ||
     smoothieCard.points <= 0
   ) {
-    updatedSmoothieCard.points = 1;
     return nextAdminRepository.updateCardLoyalty({
       params,
       formData,
@@ -53,7 +53,6 @@ export const submitSmoothiePurchase = async (
         error: "Cliente elegível, adicionar prêmio",
       };
     }
-    updatedSmoothieCard.points = 1;
     return nextAdminRepository.updateCardLoyalty({
       params,
       formData,

@@ -33,8 +33,6 @@ export class CardLoyaltyRepository {
         ],
       },
     });
-    console.log(new Date());
-    console.log(smoothieRound);
     return (
       smoothieRound || {
         customerId: customerId,
