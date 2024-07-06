@@ -7,6 +7,7 @@ import { submitSmoothiePurchase } from "./submit-smoothie-purchase";
 import { submitSmoothieAward } from "./submit-smoothie-award";
 import { NextAdminRepository } from "../../db/prisma/repositories/next-admin-repository";
 import { CustomersRepository } from "@/db/prisma/repositories/customers-repository";
+import { CardLoyaltyRepository } from "@/db/prisma/repositories/card-loyalt-repository";
 
 export const submitFormAction = async (
   params: ActionParams,
@@ -22,6 +23,7 @@ export const submitFormAction = async (
 
   const nextAdminRepository = new NextAdminRepository();
   const customersRepository = new CustomersRepository();
+  const cardLoyaltyRepository = new CardLoyaltyRepository();
 
   if (params.params?.includes("purchase") && params.params?.includes("new")) {
     const type = formData.get("type");
@@ -30,6 +32,7 @@ export const submitFormAction = async (
         params,
         formData,
         customersRepository,
+        cardLoyaltyRepository,
         nextAdminRepository
       );
     }
@@ -44,7 +47,7 @@ export const submitFormAction = async (
       return submitSmoothieAward(
         params,
         formData,
-        customersRepository,
+        cardLoyaltyRepository,
         nextAdminRepository
       );
     }

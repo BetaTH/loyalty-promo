@@ -7,13 +7,12 @@ import {
   submitForm as nextAdminSubmitForm,
   SearchPaginatedResourceParams,
 } from "@premieroctet/next-admin/dist/actions";
-import { PrismaClient } from "@prisma/client";
+import { CardLoyalty, PrismaClient } from "@prisma/client";
 
-type UpdateSmoothieAwardRoundWithPurchaseProps = {
+type updateCardLoyaltyWithPurchaseProps = {
   params: ActionParams;
   formData: FormData;
-  customerId: number;
-  createdAt: Date;
+  cardLoyalty: CardLoyalty;
 };
 
 export class NextAdminRepository {
@@ -47,38 +46,21 @@ export class NextAdminRepository {
     );
   }
 
-  async updateSmoothieAwardRoundWithPurchase({
-    customerId,
-    createdAt,
+  async updateCardLoyalty({
+    cardLoyalty,
     formData,
     params,
-  }: UpdateSmoothieAwardRoundWithPurchaseProps) {
+  }: updateCardLoyaltyWithPurchaseProps) {
     return prismaClient.$transaction(async (tx) => {
-      await tx.customer.update({
+      await tx.cardLoyalty.upsert({
         where: {
-          id: customerId,
+          customerId_type: {
+            customerId: cardLoyalty.customerId,
+            type: cardLoyalty.type,
+          },
         },
-        data: {
-          lastSmoothieAwardRound: createdAt,
-        },
-      });
-      return this.submitForm(params, formData, tx);
-    });
-  }
-
-  async updateSmoothieAwardRoundWithAward(
-    params: ActionParams,
-    formData: FormData,
-    customerId: number
-  ) {
-    return this.getPrismaClient().$transaction(async (tx) => {
-      await tx.customer.update({
-        where: {
-          id: customerId,
-        },
-        data: {
-          lastSmoothieAwardRound: null,
-        },
+        update: cardLoyalty,
+        create: cardLoyalty,
       });
       return this.submitForm(params, formData, tx);
     });

@@ -18,7 +18,7 @@ const play = Play({
 
 export const metadata: Metadata = {
   title: 'Promoção Fidelidade',
-  description: 'Promoção Fidelidade da SA Suplemento',
+  description: 'Promoção Fidelidade da SA Suplementos',
 }
 
 const supermolot = localFont({

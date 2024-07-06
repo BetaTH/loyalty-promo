@@ -34,17 +34,16 @@ model AdminUser {
 }
 
 model Customer {
-  id                     Int       @id @default(autoincrement())
-  name                   String    @map("nome")
-  email                  String    @unique
-  cpf                    String    @unique
-  phoneNumber            String    @map("telefone")
-  createdAt              DateTime  @default(now()) @map("data_cadastro")
-  lastSmoothieAwardRound DateTime? @map("ultimo_ciclo_de_premio_smoothie")
-  lastCommonAwardRound   DateTime? @map("ultimo_ciclo_de_premio_suplemento")
+  id          Int      @id @default(autoincrement())
+  name        String   @map("nome")
+  email       String   @unique
+  cpf         String   @unique
+  phoneNumber String   @map("telefone")
+  createdAt   DateTime @default(now()) @map("data_cadastro")
 
-  purchase Purchase[]
-  award    Award[]
+  purchase    Purchase[]
+  award       Award[]
+  cardLoyalty CardLoyalty[]
 
   @@map("clientes")
 }
@@ -71,4 +70,18 @@ model Award {
   customerId Int      @map("cliente_id")
 
   @@map("premio")
+}
+
+model CardLoyalty {
+  type         Type      @map("tipo")
+  roundStartAt DateTime? @map("data_inicio_do_ciclo")
+  roundEndAt   DateTime? @map("data_fim_do_ciclo")
+  points       Int       @map("pontos")
+
+  customer   Customer @relation(fields: [customerId], references: [id])
+  customerId Int      @map("cliente_id")
+
+  @@id([customerId, type])
+  @@unique([customerId, type])
+  @@map("cartao_fidelidade")
 }

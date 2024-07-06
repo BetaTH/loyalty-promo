@@ -45,20 +45,6 @@
           "type": "string",
           "format": "date-time"
         },
-        "lastSmoothieAwardRound": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "lastCommonAwardRound": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
         "purchase": {
           "type": "array",
           "items": {
@@ -69,6 +55,12 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/Award"
+          }
+        },
+        "cardLoyalty": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CardLoyalty"
           }
         }
       },
@@ -139,6 +131,43 @@
         "awardRoundStartedAt",
         "customerId"
       ]
+    },
+    "CardLoyalty": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "smoothie",
+            "suplemento"
+          ]
+        },
+        "roundStartAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "roundEndAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "points": {
+          "type": "integer"
+        },
+        "customer": {
+          "$ref": "#/definitions/Customer"
+        }
+      },
+      "required": [
+        "type",
+        "points",
+        "customerId"
+      ]
     }
   },
   "type": "object",
@@ -154,6 +183,9 @@
     },
     "award": {
       "$ref": "#/definitions/Award"
+    },
+    "cardLoyalty": {
+      "$ref": "#/definitions/CardLoyalty"
     }
   }
 }

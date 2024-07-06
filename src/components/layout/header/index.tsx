@@ -38,7 +38,7 @@ export function Header() {
         <Link href={'/'} className="flex items-center gap-2">
           <SALogo className="text-primary sm:size-12 size-10" />
           <span className="text-white sm:text-3xl text-lg text-center sm:flex-row font-bank-gothic">
-            Suplemento
+            Suplementos
           </span>
         </Link>
         {pathname === '/' && (

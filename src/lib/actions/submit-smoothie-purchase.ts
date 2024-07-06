@@ -4,44 +4,47 @@ import { CustomersRepository } from "@/db/prisma/repositories/customers-reposito
 import { ActionParams } from "@premieroctet/next-admin";
 import { getFinalAwardRoundDate } from "../functions/get-final-round-date";
 import { NextAdminRepository } from "@/db/prisma/repositories/next-admin-repository";
+import { CardLoyaltyRepository } from "@/db/prisma/repositories/card-loyalt-repository";
 
 export const submitSmoothiePurchase = async (
   params: ActionParams,
   formData: FormData,
   customersRepository: CustomersRepository,
+  cardLoyaltyRepository: CardLoyaltyRepository,
   nextAdminRepository: NextAdminRepository
 ) => {
   const customerId = Number(formData.get("customer"));
-  const lastSmoothieAwardRound =
-    await customersRepository.getLastSmoothieAwardRound(customerId);
   const createdAt = new Date();
+  const smoothieCard =
+    await cardLoyaltyRepository.getSmoothieCardWithAValidRound(
+      customerId,
+      createdAt
+    );
   formData.append("createdAt", createdAt.toISOString());
 
-  if (lastSmoothieAwardRound === null) {
-    return nextAdminRepository.updateSmoothieAwardRoundWithPurchase({
+  let updatedSmoothieCard = {
+    ...smoothieCard,
+    roundStartAt: createdAt,
+    roundEndAt: getFinalAwardRoundDate(createdAt, 30),
+  };
+
+  if (
+    smoothieCard.roundStartAt === null ||
+    smoothieCard.roundEndAt === null ||
+    smoothieCard.points <= 0
+  ) {
+    updatedSmoothieCard.points = 1;
+    return nextAdminRepository.updateCardLoyalty({
       params,
       formData,
-      customerId,
-      createdAt,
+      cardLoyalty: updatedSmoothieCard,
     });
   }
 
-  const finalSmoothieAwardRound = getFinalAwardRoundDate(
-    lastSmoothieAwardRound,
-    30
-  );
-
-  const purchaseCountInARound =
-    await customersRepository.getSmoothiePurchaseCountInARound(
-      customerId,
-      lastSmoothieAwardRound,
-      finalSmoothieAwardRound
-    );
-
-  if (purchaseCountInARound >= 10) {
+  if (smoothieCard.points >= 10) {
     const award = await customersRepository.getCustomerAward(
       customerId,
-      lastSmoothieAwardRound,
+      smoothieCard.roundStartAt,
       "smoothie"
     );
     if (award === null) {
@@ -50,20 +53,17 @@ export const submitSmoothiePurchase = async (
         error: "Cliente elegível, adicionar prêmio",
       };
     }
-    return nextAdminRepository.updateSmoothieAwardRoundWithPurchase({
+    updatedSmoothieCard.points = 1;
+    return nextAdminRepository.updateCardLoyalty({
       params,
       formData,
-      customerId,
-      createdAt,
+      cardLoyalty: updatedSmoothieCard,
     });
   }
-  if (createdAt > finalSmoothieAwardRound) {
-    return nextAdminRepository.updateSmoothieAwardRoundWithPurchase({
-      params,
-      formData,
-      customerId,
-      createdAt,
-    });
-  }
-  return nextAdminRepository.submitForm(params, formData);
+
+  return nextAdminRepository.updateCardLoyalty({
+    params,
+    formData,
+    cardLoyalty: { ...smoothieCard, points: smoothieCard.points + 1 },
+  });
 };

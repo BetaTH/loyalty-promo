@@ -2,7 +2,7 @@
 
 import { CustomersRepository } from "@/db/prisma/repositories/customers-repository";
 import { getSession } from "../sessions";
-import { getFinalAwardRoundDate } from "../functions/get-final-round-date";
+import { CardLoyaltyRepository } from "@/db/prisma/repositories/card-loyalt-repository";
 
 export async function getCustomerStats() {
   const session = await getSession();
@@ -15,46 +15,28 @@ export async function getCustomerStats() {
 
   const customerId = Number(session.sub);
   const customersRepository = new CustomersRepository();
+  const cardLoyaltyRepository = new CardLoyaltyRepository();
   const customer = await customersRepository.getCustomerById(customerId);
 
   if (!customer) {
     return null;
   }
+
+  const dateNow = new Date();
+  const smoothieCard =
+    await cardLoyaltyRepository.getSmoothieCardWithAValidRound(
+      customerId,
+      dateNow
+    );
+
   const customerResponse = {
     name: customer.name,
     email: customer.email,
     phoneNumber: customer.phoneNumber,
   };
 
-  const lastSmoothieAwardRound = customer.lastSmoothieAwardRound;
-
-  if (lastSmoothieAwardRound === null) {
-    return {
-      customer: customerResponse,
-      smoothieCount: 0,
-    };
-  }
-  const dateNow = new Date();
-  const finalSmoothieAwardRound = getFinalAwardRoundDate(
-    lastSmoothieAwardRound,
-    30
-  );
-  const purchaseCountInARound =
-    await customersRepository.getSmoothiePurchaseCountInARound(
-      customerId,
-      lastSmoothieAwardRound,
-      finalSmoothieAwardRound
-    );
-
-  if (purchaseCountInARound < 10 && dateNow > finalSmoothieAwardRound) {
-    return {
-      customer: customerResponse,
-      smoothieCount: 0,
-    };
-  }
-
   return {
     customer: customerResponse,
-    smoothieCount: purchaseCountInARound,
+    smoothieCount: smoothieCard.points,
   };
 }

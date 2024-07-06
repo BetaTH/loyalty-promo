@@ -1,51 +1,49 @@
 "use server";
 
-import { CustomersRepository } from "@/db/prisma/repositories/customers-repository";
 import { ActionParams } from "@premieroctet/next-admin";
-import { getFinalAwardRoundDate } from "../functions/get-final-round-date";
 import { NextAdminRepository } from "@/db/prisma/repositories/next-admin-repository";
+import { CardLoyaltyRepository } from "@/db/prisma/repositories/card-loyalt-repository";
 
 export const submitSmoothieAward = async (
   params: ActionParams,
   formData: FormData,
-  customersRepository: CustomersRepository,
+  cardLoyaltyRepository: CardLoyaltyRepository,
   nextAdminRepository: NextAdminRepository
 ) => {
   const customerId = Number(formData.get("customer"));
 
-  const lastSmoothieAwardRound =
-    await customersRepository.getLastSmoothieAwardRound(customerId);
-
-  if (lastSmoothieAwardRound === null) {
-    return {
-      created: false,
-      error: "Só possível adicionar prêmios para clientes elegíveis",
-    };
-  }
-
-  const finalSmoothieAwardRound = getFinalAwardRoundDate(
-    lastSmoothieAwardRound,
-    30
-  );
-
-  const purchaseCountInARound =
-    await customersRepository.getSmoothiePurchaseCountInARound(
+  const smoothieCard =
+    await cardLoyaltyRepository.getSmoothieCardWithAValidRound(
       customerId,
-      lastSmoothieAwardRound,
-      finalSmoothieAwardRound
+      new Date()
     );
 
-  if (purchaseCountInARound < 10) {
+  let updatedSmoothieCard = {
+    ...smoothieCard,
+    roundStartAt: null,
+    roundEndAt: null,
+    points: 0,
+  };
+
+  if (
+    smoothieCard.roundStartAt === null ||
+    smoothieCard.roundEndAt === null ||
+    smoothieCard.points < 10
+  ) {
     return {
       created: false,
       error: "Só possível adicionar prêmios para clientes elegíveis",
     };
   }
-  formData.append("awardRoundStartedAt", lastSmoothieAwardRound.toISOString());
 
-  return nextAdminRepository.updateSmoothieAwardRoundWithAward(
+  formData.append(
+    "awardRoundStartedAt",
+    smoothieCard.roundStartAt.toISOString()
+  );
+
+  return nextAdminRepository.updateCardLoyalty({
     params,
     formData,
-    customerId
-  );
+    cardLoyalty: updatedSmoothieCard,
+  });
 };
