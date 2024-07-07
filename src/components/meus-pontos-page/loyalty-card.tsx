@@ -18,18 +18,21 @@ interface LoyaltyCardProps {
     email: string;
     phoneNumber: string;
   };
-  smoothieCount: number;
+  card: {
+    type: string;
+    points: number;
+  };
 }
 
-export function LoyaltyCard({ customer, smoothieCount }: LoyaltyCardProps) {
+export function LoyaltyCard({ customer, card }: LoyaltyCardProps) {
   const panOffSetX = useMotionValue(0);
   const panOffSetY = useMotionValue(0);
   const rotateXDeg = useMotionValue("0deg");
   const rotateYDeg = useMotionValue("0deg");
 
-  const input = [-500, -50, 0, 50, 500];
-  const outputX = [15, 10, 0, -10, -15];
-  const outputY = [-15, -10, 0, 10, 15];
+  const input = [-500, -100, 0, 100, 500];
+  const outputX = [10, 8, 0, -8, -10];
+  const outputY = [-13, -8, 0, 8, 13];
 
   useTransform(panOffSetX, input, outputX).on("change", (latest) => {
     rotateXDeg.set(`${latest}deg`);
@@ -40,12 +43,11 @@ export function LoyaltyCard({ customer, smoothieCount }: LoyaltyCardProps) {
 
   const count = Array.from({ length: 10 }, (_, i) => i + 1);
   return (
-    <div className="[perspective:800px] sm:[perspective:2000px]">
+    <div className="[perspective:800px] sm:[perspective:2000px] w-fit my-10 mx-auto">
       <motion.div
         style={{
           rotateX: rotateXDeg,
           rotateY: rotateYDeg,
-          touchAction: "none",
         }}
         onPan={(_, pointInfo) => {
           panOffSetX.set(pointInfo.offset.y);
@@ -56,11 +58,19 @@ export function LoyaltyCard({ customer, smoothieCount }: LoyaltyCardProps) {
           animate(panOffSetY, 0, { duration: 0.3 });
         }}
         className={cn(
-          "*:pointer-events-none *:select-none relative [transform-style:preserve-3d]",
-          "before:absolute before:inset-[-0.5rem] before:z-[-1] before:bg-white/5 before:blur-[10px] before:[transform:translateZ(-50px)]"
+          "touch-none *:pointer-events-none [backface-visibility:hidden] *:select-none relative [transform-style:preserve-3d]",
+          "before:absolute before:inset-[0.25rem] before:z-[-1] before:bg-white/10 before:blur-[10px] before:[transform:translateZ(-50px)]"
         )}
       >
-        <Card className="[transform-style:preserve-3d] max-w-full w-[21.25rem] overflow-visible z-0 sm:rounded-2xl rounded-xl sm:w-[38rem] sm:p-6 p-4 gap-6 sm:gap-12 flex flex-col border border-gray-200/20">
+        <Card
+          className={cn(
+            "[transform-style:preserve-3d] max-w-full w-[21.25rem] overflow-visible z-0 sm:rounded-2xl rounded-xl sm:w-[35rem] md:w-[38rem] sm:p-6 p-4 gap-6 sm:gap-12 flex flex-col border border-gray-200/20",
+            {
+              "bg-card": card.type === "smoothie",
+              "bg-secondary": card.type === "suplemento",
+            }
+          )}
+        >
           <div className="absolute w-full h-full overflow-hidden top-0 left-0 rounded-[inherit]">
             <Image
               src="./logo-sa.svg"
@@ -79,8 +89,8 @@ export function LoyaltyCard({ customer, smoothieCount }: LoyaltyCardProps) {
             <CardDescription className="text-sm/[1.05em] sm:text-2xl/[1.05em] mt-2 sm:mt-4 font-bank-gothic">
               Cartão Fidelidade:
             </CardDescription>
-            <CardDescription className="text-3xl/6 sm:text-[2.75rem]/[1] mt-1 sm:mt-2 font-supermoloc text-primary">
-              SMOOTHIE
+            <CardDescription className="text-3xl/6 sm:text-[2.75rem]/[1] mt-1 sm:mt-2 font-supermoloc text-primary uppercase">
+              {card.type}
             </CardDescription>
           </CardHeader>
           <CardContent className="[transform:translateZ(5px)] trans grid w-fit grid-cols-5 gap-3 sm:gap-5 mx-auto p-0">
@@ -89,7 +99,7 @@ export function LoyaltyCard({ customer, smoothieCount }: LoyaltyCardProps) {
                 <div
                   key={idx}
                   className={cn("size-10 sm:size-14 bg-white rounded-full ", {
-                    "bg-primary": value <= smoothieCount,
+                    "bg-primary": value <= card.points,
                   })}
                 />
               );

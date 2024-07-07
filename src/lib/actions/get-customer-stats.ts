@@ -4,7 +4,19 @@ import { CustomersRepository } from "@/db/prisma/repositories/customers-reposito
 import { getSession } from "../sessions";
 import { CardLoyaltyRepository } from "@/db/prisma/repositories/card-loyalt-repository";
 
-export async function getCustomerStats() {
+export interface CustomerStats {
+  customer: {
+    name: string;
+    email: string;
+    phoneNumber: string;
+  };
+  cards: {
+    type: string;
+    points: number;
+  }[];
+}
+
+export async function getCustomerStats(): Promise<CustomerStats | null> {
   const session = await getSession();
   if (!session.hasSession) {
     return null;
@@ -37,6 +49,11 @@ export async function getCustomerStats() {
 
   return {
     customer: customerResponse,
-    smoothieCount: smoothieCard.points,
+    cards: [
+      {
+        type: "smoothie",
+        points: smoothieCard.points,
+      },
+    ],
   };
 }
