@@ -1,23 +1,25 @@
-import { PropsWithChildren } from 'react'
-import { Footer } from './footer'
-import { Header } from './header'
-import { cn } from '@/lib/utils/cn'
+import { PropsWithChildren } from "react";
+import { Footer } from "./footer";
+import { Header } from "./header";
+import { cn } from "@/lib/utils/cn";
 
 interface LayoutProps extends PropsWithChildren {
-  className?: string
-  withHeader?: boolean
+  className?: string;
+  withHeader?: boolean;
+  withFooter?: boolean;
 }
 
 export function Layout({
+  withFooter = true,
   withHeader = true,
   className,
   children,
 }: LayoutProps) {
   return (
-    <main className={cn('', className)}>
+    <main className={cn("min-h-dvh", className)}>
       {withHeader && <Header />}
       {children}
-      <Footer />
+      {withFooter && <Footer />}
     </main>
-  )
+  );
 }

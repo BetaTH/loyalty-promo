@@ -10,9 +10,8 @@ export default async function MeusPontos() {
   };
   const smoothieCount = 4;
   return (
-    <Layout>
-      <LayoutCenter>
-        <LoyaltyCard customer={customer} smoothieCount={smoothieCount} />
+    <Layout className="h-screen bg-[url('/bg/bg.png')] bg-[length:250%] sm:bg-[length:75%] bg-repeat">
+      <LayoutCenter className="h-[78%] sm:h-[85%]">
         <LoyaltyCard customer={customer} smoothieCount={smoothieCount} />
       </LayoutCenter>
     </Layout>
