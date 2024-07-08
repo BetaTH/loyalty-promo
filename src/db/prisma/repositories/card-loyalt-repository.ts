@@ -88,8 +88,6 @@ export class CardLoyaltyRepository {
       }
     });
 
-    console.log(cards);
-
     return cards;
   }
 }

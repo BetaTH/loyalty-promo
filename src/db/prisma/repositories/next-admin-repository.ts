@@ -52,17 +52,21 @@ export class NextAdminRepository {
     params,
   }: updateCardLoyaltyWithPurchaseProps) {
     return prismaClient.$transaction(async (tx) => {
-      await tx.cardLoyalty.upsert({
-        where: {
-          customerId_type: {
-            customerId: cardLoyalty.customerId,
-            type: cardLoyalty.type,
+      const result = await this.submitForm(params, formData, tx);
+      if (result && (result.created || result.updated)) {
+        await tx.cardLoyalty.upsert({
+          where: {
+            customerId_type: {
+              customerId: cardLoyalty.customerId,
+              type: cardLoyalty.type,
+            },
           },
-        },
-        update: cardLoyalty,
-        create: cardLoyalty,
-      });
-      return this.submitForm(params, formData, tx);
+          update: cardLoyalty,
+          create: cardLoyalty,
+        });
+      }
+
+      return result;
     });
   }
 
