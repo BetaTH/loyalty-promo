@@ -22,8 +22,11 @@ export default function MeusPontos() {
   ];
 
   return (
-    <Layout className="h-screen bg-[url('/bg/bg.png')] bg-[length:250%] sm:bg-[length:75%] bg-repeat">
-      <LayoutCenter className="h-[78%] sm:h-[85%] relative">
+    <Layout
+      withFooter={false}
+      className="bg-[url('/bg/bg.png')] bg-[length:250%] sm:bg-[length:75%] bg-repeat"
+    >
+      <LayoutCenter className="h-full">
         <CardsCarousel customerStats={{ customer, cards }} />
       </LayoutCenter>
     </Layout>
