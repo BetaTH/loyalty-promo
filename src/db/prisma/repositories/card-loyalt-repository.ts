@@ -1,3 +1,4 @@
+import { $Enums } from "@prisma/client";
 import { prisma } from "..";
 
 export class CardLoyaltyRepository {
@@ -42,5 +43,53 @@ export class CardLoyaltyRepository {
         roundStartAt: null,
       }
     );
+  }
+
+  async getCardsWithAValidRound(customerId: number, dateNow: Date) {
+    const cards = await prisma.cardLoyalty.findMany({
+      where: {
+        customerId,
+        OR: [
+          {
+            AND: [
+              {
+                roundStartAt: {
+                  lte: dateNow,
+                },
+              },
+              {
+                roundEndAt: {
+                  gte: dateNow,
+                },
+              },
+            ],
+          },
+          {
+            points: {
+              gte: 10,
+            },
+          },
+        ],
+      },
+      select: {
+        type: true,
+        points: true,
+      },
+    });
+
+    const cardTypes = Object.values($Enums.Type);
+    cardTypes.map((cardType) => {
+      const card = cards.find((card) => card.type === cardType);
+      if (!card) {
+        cards.push({
+          type: cardType,
+          points: 0,
+        });
+      }
+    });
+
+    console.log(cards);
+
+    return cards;
   }
 }

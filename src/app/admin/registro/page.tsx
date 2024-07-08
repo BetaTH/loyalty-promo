@@ -40,8 +40,8 @@ export default function AdminLogin() {
   });
 
   return (
-    <Layout withHeader={false} withFooter={false}>
-      <LayoutCenter className="h-full">
+    <Layout className="flex" withHeader={false} withFooter={false}>
+      <LayoutCenter className="flex-1">
         <Card className="rounded-lg shadow-md shadow-white/10 sm:p-5 w-full sm:w-fit">
           <CardHeader className="sm:w-96">
             <CardTitle className="text-3xl sm:text-4xl">
