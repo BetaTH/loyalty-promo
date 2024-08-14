@@ -14,7 +14,7 @@ export const dynamic = 'force-dynamic'
 
 export default async function Home() {
   const result = await getCustomerStats()!
-  const { user, shakeCount } = result!
+  const { customer, shakeCount } = result!
   const count = Array.from({ length: 10 }, (_, i) => i + 1)
   return (
     <LayoutWithFooter withHeader>
@@ -29,7 +29,7 @@ export default async function Home() {
         />
         <CardHeader className="p-0">
           <CardTitle className="w-[14.75rem] max-h-[2.8875rem] sm:max-h-[5.25rem] line-clamp-2 font-normal text-[1.375rem]/[1.05em] sm:w-[27.5rem] sm:text-[2.5rem]/[1.05em]">
-            {user.name}
+            {customer.name}
           </CardTitle>
           <CardDescription className="text-sm/[1.05em] sm:text-2xl/[1.05em] mt-2 sm:mt-4">
             Cartão Fidelidade:

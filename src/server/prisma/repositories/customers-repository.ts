@@ -11,6 +11,15 @@ export class CustomersRepository {
     return customer
   }
 
+  async getCustomerById(id: number) {
+    const customer = await prisma.customer.findUnique({
+      where: {
+        id,
+      },
+    })
+    return customer
+  }
+
   async getCustomerLoyaltyStats(id: number) {
     const user = await prisma.customer.findUnique({
       where: {
