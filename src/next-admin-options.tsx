@@ -10,20 +10,47 @@ export const options: NextAdminOptions = {
   basePath: '/admin',
   title: 'Admin',
   model: {
-    User: {
-      toString: (user) => `${user.cpf} (${user.email})`,
+    Customer: {
+      toString: (customer) => `${customer.cpf} (${customer.email})`,
       title: 'Clientes',
       icon: 'UsersIcon',
       aliases: {
         cpf: 'CPF',
         name: 'Nome',
+        email: 'Email',
         phoneNumber: 'Telefone',
-        created_at: 'Data de Cadastro',
         purchase: 'Compras',
+        award: ' Prêmios',
+        createdAt: 'Data de Cadastro',
+        lastCommonAwardRound: 'Último Ciclo de Prêmio Comum',
+        lastShakeAwardRound: 'Último Ciclo de Prêmio Shake',
       },
       list: {
+        display: [
+          'cpf',
+          'name',
+          'email',
+          'phoneNumber',
+          'purchase',
+          'award',
+          'createdAt',
+        ],
         fields: {
-          created_at: {
+          createdAt: {
+            formatter: (date) => {
+              return new Date(date as unknown as string)
+                ?.toLocaleString('pt-BR')
+                .split(/[\s,]+/)[0]
+            },
+          },
+          lastCommonAwardRound: {
+            formatter: (date) => {
+              return new Date(date as unknown as string)
+                ?.toLocaleString('pt-BR')
+                .split(/[\s,]+/)[0]
+            },
+          },
+          lastShakeAwardRound: {
             formatter: (date) => {
               return new Date(date as unknown as string)
                 ?.toLocaleString('pt-BR')
@@ -52,22 +79,21 @@ export const options: NextAdminOptions = {
     },
     Purchase: {
       toString: (purchase) =>
-        `${purchase.user.name} ${purchase.user.created_at.toLocaleString('pt-BR').split(/[\s,]+/)[0]}`,
+        `${purchase.customer.name} ${purchase.customer.createdAt.toLocaleString('pt-BR').split(/[\s,]+/)[0]}`,
       title: 'Compras',
       icon: 'CreditCardIcon',
       aliases: {
         type: 'Tipo',
-        isGift: 'É Premio',
         amount: 'Valor',
-        created_at: 'Data da Compra',
-        user: 'Cliente',
+        createdAt: 'Data da Compra',
+        customer: 'Cliente',
       },
       list: {
-        display: ['id', 'type', 'amount', 'created_at', 'isGift', 'user'],
+        display: ['id', 'type', 'amount', 'createdAt', 'customer'],
         fields: {
-          user: {
-            formatter: (user) => {
-              return user.name
+          customer: {
+            formatter: (customer) => {
+              return customer.name
             },
           },
           amount: {
@@ -75,12 +101,7 @@ export const options: NextAdminOptions = {
               return formatMoney(amount.toFixed(2))
             },
           },
-          isGift: {
-            formatter: (isGift) => {
-              return isGift ? 'Sim' : 'Não'
-            },
-          },
-          created_at: {
+          createdAt: {
             formatter: (date) => {
               return new Date(date).toLocaleString('pt-BR').split(/[\s,]+/)[0]
             },
@@ -103,6 +124,38 @@ export const options: NextAdminOptions = {
             },
           },
         },
+      },
+    },
+    Award: {
+      title: 'Prêmios',
+      icon: 'GiftIcon',
+      aliases: {
+        type: 'Tipo',
+        customer: 'Cliente',
+        awardRoundStartedAt: 'Data de Início do Ciclo',
+        awardRoundEndedAt: 'Data de Encerramento do Ciclo',
+      },
+      list: {
+        fields: {
+          awardRoundStartedAt: {
+            formatter: (date) => {
+              return new Date(date as unknown as string)
+                ?.toLocaleString('pt-BR')
+                .split(/[\s,]+/)[0]
+            },
+          },
+          awardRoundEndedAt: {
+            formatter: (date) => {
+              return new Date(date as unknown as string)
+                ?.toLocaleString('pt-BR')
+                .split(/[\s,]+/)[0]
+            },
+          },
+        },
+      },
+      edit: {
+        display: ['id', 'type', 'customer'],
+        fields: {},
       },
     },
   },

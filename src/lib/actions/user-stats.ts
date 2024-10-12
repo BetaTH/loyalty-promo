@@ -1,9 +1,9 @@
 'use server'
 
-import { UsersRepository } from '@/server/prisma/repositories/users-repository'
+import { CustomersRepository } from '@/server/prisma/repositories/customers-repository'
 import { getSession } from '../sessions'
 
-export async function getUserStats() {
+export async function getCustomerStats() {
   const session = await getSession()
   if (!session.hasSession) {
     return null
@@ -12,10 +12,11 @@ export async function getUserStats() {
     return null
   }
 
-  const userId = Number(session.sub)
+  const customerId = Number(session.sub)
 
-  const usersRepository = new UsersRepository()
-  const userStats = await usersRepository.getUserLoyaltyStats(userId)
+  const customersRepository = new CustomersRepository()
+  const customerStats =
+    await customersRepository.getCustomerLoyaltyStats(customerId)
 
-  return userStats
+  return customerStats
 }

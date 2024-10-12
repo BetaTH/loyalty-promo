@@ -23,7 +23,7 @@
         "password"
       ]
     },
-    "User": {
+    "Customer": {
       "type": "object",
       "properties": {
         "id": {
@@ -41,14 +41,34 @@
         "phoneNumber": {
           "type": "string"
         },
-        "created_at": {
+        "createdAt": {
           "type": "string",
+          "format": "date-time"
+        },
+        "lastShakeAwardRound": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "lastCommonAwardRound": {
+          "type": [
+            "string",
+            "null"
+          ],
           "format": "date-time"
         },
         "purchase": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/Purchase"
+          }
+        },
+        "award": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Award"
           }
         }
       },
@@ -65,7 +85,7 @@
         "id": {
           "type": "integer"
         },
-        "created_at": {
+        "createdAt": {
           "type": "string",
           "format": "date-time"
         },
@@ -80,17 +100,44 @@
         "amount": {
           "type": "number"
         },
-        "isGift": {
-          "type": "boolean",
-          "default": false
-        },
-        "user": {
-          "$ref": "#/definitions/User"
+        "customer": {
+          "$ref": "#/definitions/Customer"
         }
       },
       "required": [
         "amount",
-        "user_id"
+        "customerId"
+      ]
+    },
+    "Award": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "type": {
+          "type": "string",
+          "default": "shake",
+          "enum": [
+            "shake",
+            "comum"
+          ]
+        },
+        "awardRoundStartedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "awardRoundEndedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "customer": {
+          "$ref": "#/definitions/Customer"
+        }
+      },
+      "required": [
+        "awardRoundStartedAt",
+        "customerId"
       ]
     }
   },
@@ -99,11 +146,14 @@
     "adminUser": {
       "$ref": "#/definitions/AdminUser"
     },
-    "user": {
-      "$ref": "#/definitions/User"
+    "customer": {
+      "$ref": "#/definitions/Customer"
     },
     "purchase": {
       "$ref": "#/definitions/Purchase"
+    },
+    "award": {
+      "$ref": "#/definitions/Award"
     }
   }
 }

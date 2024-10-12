@@ -1,7 +1,7 @@
 'use server'
 import { z } from 'zod'
 
-import { UsersRepository } from '@/server/prisma/repositories/users-repository'
+import { CustomersRepository } from '@/server/prisma/repositories/customers-repository'
 
 import { createSession } from '../sessions'
 
@@ -35,10 +35,13 @@ export async function signIn(
   }
 
   const { email, cpf } = validatedData.data
-  const usersRepository = new UsersRepository()
-  const user = await usersRepository.getUserByEmailAndCPF(email, cpf)
+  const customersRepository = new CustomersRepository()
+  const customer = await customersRepository.getCustomerByEmailAndCPF(
+    email,
+    cpf,
+  )
 
-  if (!user) {
+  if (!customer) {
     return {
       ok: false,
       status: 400,
@@ -46,9 +49,9 @@ export async function signIn(
     }
   }
   createSession({
-    sub: String(user.id),
-    email: user.email,
-    name: user.name,
+    sub: String(customer.id),
+    email: customer.email,
+    name: customer.name,
     role: 'COMMON',
   })
   return { ok: true, status: 200 }

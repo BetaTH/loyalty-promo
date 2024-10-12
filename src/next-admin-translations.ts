@@ -36,8 +36,10 @@ export const translations: Translations = {
   'theme.light': 'Claro',
   'user.logout': 'Sair',
   'theme.system': 'Sistema',
-  'model.User.name': 'Cliente',
+  'model.Customer.name': 'Cliente',
   'model.Purchase.name': 'Compra',
-  'model.User.plural': 'Clientes',
+  'model.Award.name': 'Prêmio',
+  'model.Customer.plural': 'Clientes',
   'model.Purchase.plural': 'Compras',
+  'model.Award.plural': 'Prêmios',
 }
