@@ -6,14 +6,14 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { getUserStats } from '@/lib/actions/user-stats'
+import { getCustomerStats } from '@/lib/actions/get-customer-stats'
 import { cn } from '@/lib/utils/cn'
 import Image from 'next/image'
 
 export const dynamic = 'force-dynamic'
 
 export default async function Home() {
-  const result = await getUserStats()!
+  const result = await getCustomerStats()!
   const { user, shakeCount } = result!
   const count = Array.from({ length: 10 }, (_, i) => i + 1)
   return (
