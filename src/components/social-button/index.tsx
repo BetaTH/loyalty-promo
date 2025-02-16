@@ -1,12 +1,12 @@
-import { cn } from "@/lib/utils/cn";
-import Link from "next/link";
-import { ElementType } from "react";
+import { cn } from '@/lib/utils/cn'
+import Link from 'next/link'
+import { ElementType } from 'react'
 
 interface SocialButtonProps {
-  icon: ElementType;
-  href: string;
-  className?: string;
-  containerClassName?: string;
+  icon: ElementType
+  href: string
+  className?: string
+  containerClassName?: string
 }
 
 export function SocialButton({
@@ -22,10 +22,10 @@ export function SocialButton({
     >
       <Icon
         className={cn(
-          "size-8 text-foreground hover:text-primary transition-colors ",
-          className
+          'size-8 text-foreground hover:text-primary transition-colors ',
+          className,
         )}
       />
     </Link>
-  );
+  )
 }

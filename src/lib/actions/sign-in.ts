@@ -1,43 +1,43 @@
-"use server";
-import { z } from "zod";
-import { createServerAction } from "zsa";
-import { CustomersRepository } from "@/db/prisma/repositories/customers-repository";
-import { createSession } from "../sessions";
+'use server'
+import { z } from 'zod'
+import { createServerAction } from 'zsa'
+import { CustomersRepository } from '@/db/prisma/repositories/customers-repository'
+import { createSession } from '../sessions'
 
 const signInDataSchema = z.object({
   email: z.string().email(),
   cpf: z.string(),
-});
+})
 
 export const signIn = createServerAction()
   .input(signInDataSchema, {
-    type: "formData",
+    type: 'formData',
   })
-  .handler(handler);
+  .handler(handler)
 
 async function handler({
   input: { email, cpf },
 }: {
-  input: z.infer<typeof signInDataSchema>;
+  input: z.infer<typeof signInDataSchema>
 }) {
-  const customersRepository = new CustomersRepository();
+  const customersRepository = new CustomersRepository()
   const customer = await customersRepository.getCustomerByEmailAndCPF(
     email,
-    cpf
-  );
+    cpf,
+  )
 
   if (!customer) {
     return {
       ok: false,
       status: 400,
-      message: "Credenciais Invalidas",
-    };
+      message: 'Credenciais Invalidas',
+    }
   }
   createSession({
     sub: String(customer.id),
     email: customer.email,
     name: customer.name,
-    role: "COMMON",
-  });
-  return { ok: true, status: 200 };
+    role: 'COMMON',
+  })
+  return { ok: true, status: 200 }
 }

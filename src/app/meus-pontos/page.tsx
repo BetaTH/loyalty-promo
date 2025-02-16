@@ -1,13 +1,13 @@
-import { Layout } from "@/components/layout/layout";
-import { LayoutCenter } from "@/components/layout/layout-center";
-import { getCustomerStats } from "@/lib/actions/get-customer-stats";
-import { CardsCarousel } from "@/components/meus-pontos-page/cards-carousel";
+import { Layout } from '@/components/layout/layout'
+import { LayoutCenter } from '@/components/layout/layout-center'
+import { getCustomerStats } from '@/lib/actions/get-customer-stats'
+import { CardsCarousel } from '@/components/meus-pontos-page/cards-carousel'
 
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic'
 
 export default async function MeusPontos() {
-  const result = await getCustomerStats()!;
-  const customerStats = result!;
+  const result = await getCustomerStats()!
+  const customerStats = result!
   return (
     <Layout
       withFooter={false}
@@ -17,5 +17,5 @@ export default async function MeusPontos() {
         <CardsCarousel customerStats={customerStats} />
       </LayoutCenter>
     </Layout>
-  );
+  )
 }

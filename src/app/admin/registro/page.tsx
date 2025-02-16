@@ -1,43 +1,43 @@
-"use client";
-import { useRouter } from "next/navigation";
-import { useServerAction } from "zsa-react";
+'use client'
+import { useRouter } from 'next/navigation'
+import { useServerAction } from 'zsa-react'
 
-import { Layout } from "@/components/layout/layout";
-import { LayoutCenter } from "@/components/layout/layout-center";
-import { ButtonLoading } from "@/components/ui/button-loading";
+import { Layout } from '@/components/layout/layout'
+import { LayoutCenter } from '@/components/layout/layout-center'
+import { ButtonLoading } from '@/components/ui/button-loading'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { firstSignUp } from "@/lib/actions/auth-admin-user";
-import { useToast } from "@/lib/hooks/use-toast";
+} from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { firstSignUp } from '@/lib/actions/auth-admin-user'
+import { useToast } from '@/lib/hooks/use-toast'
 
 export default function AdminLogin() {
-  const router = useRouter();
-  const { toast } = useToast();
+  const router = useRouter()
+  const { toast } = useToast()
 
   const { isPending, executeFormAction } = useServerAction(firstSignUp, {
     onError: ({ err }) => {
-      if (err.name === "ZodError") {
-        toast({ title: "Erro de validação", variant: "destructive" });
+      if (err.name === 'ZodError') {
+        toast({ title: 'Erro de validação', variant: 'destructive' })
       } else {
-        toast({ title: "Erro Interno no Servidor", variant: "destructive" });
+        toast({ title: 'Erro Interno no Servidor', variant: 'destructive' })
       }
     },
     onSuccess: ({ data }) => {
       if (data.ok === false) {
-        toast({ title: data.message, variant: "destructive" });
+        toast({ title: data.message, variant: 'destructive' })
       }
       if (data.ok === true) {
-        router.replace("/admin/login");
+        router.replace('/admin/login')
       }
     },
-  });
+  })
 
   return (
     <Layout className="flex" withHeader={false} withFooter={false}>
@@ -81,5 +81,5 @@ export default function AdminLogin() {
         </Card>
       </LayoutCenter>
     </Layout>
-  );
+  )
 }

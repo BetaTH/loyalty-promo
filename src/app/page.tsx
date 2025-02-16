@@ -1,22 +1,22 @@
-import { Button } from "@/components/ui/button";
-import { SiInstagram, SiWhatsapp } from "@icons-pack/react-simple-icons";
-import Link from "next/link";
-import Image from "next/image";
+import { Button } from '@/components/ui/button'
+import { SiInstagram, SiWhatsapp } from '@icons-pack/react-simple-icons'
+import Link from 'next/link'
+import Image from 'next/image'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
-import { HowItWorksItem } from "@/components/home-page/how-it-works-item";
-import { AboutItem } from "@/components/home-page/about-item";
-import { HighlightsTitle } from "@/components/home-page/highlights-title";
-import { HighlightsSubTitle } from "@/components/home-page/highlights-subtitle";
-import { Header } from "@/components/layout/header";
-import { faq } from "@/lib/const/faq";
-import { LoginForm } from "@/components/home-page/login-form";
-import { HomeHero } from "@/components/home-page/home-hero";
-import { Layout } from "@/components/layout/layout";
+} from '@/components/ui/accordion'
+import { HowItWorksItem } from '@/components/home-page/how-it-works-item'
+import { AboutItem } from '@/components/home-page/about-item'
+import { HighlightsTitle } from '@/components/home-page/highlights-title'
+import { HighlightsSubTitle } from '@/components/home-page/highlights-subtitle'
+import { Header } from '@/components/layout/header'
+import { faq } from '@/lib/const/faq'
+import { LoginForm } from '@/components/home-page/login-form'
+import { HomeHero } from '@/components/home-page/home-hero'
+import { Layout } from '@/components/layout/layout'
 
 export default function Home() {
   return (
@@ -60,7 +60,7 @@ export default function Home() {
         className="flex flex-col items-center justify-center bg-secondary w-full min-h-80 gap-5 py-24"
       >
         <h2 className="text-3xl w-[80%] sm:w-full sm:text-[2.5rem] text-white text-center font-semibold">
-          PARTICIPE TAMBÉM DO NOSSO <br className="hidden sm:block" />{" "}
+          PARTICIPE TAMBÉM DO NOSSO <br className="hidden sm:block" />{' '}
           <span className="text-primary">GRUPO VIP</span>
         </h2>
         <Button
@@ -99,16 +99,16 @@ export default function Home() {
             cardImgSrc="/card-smoothie.png"
             title="Cartão Smoothie"
             descriptions={[
-              "Compre 10 unidades do nosso suplemento especial e ganhe a 11ª unidade grátis!",
-              "Cada compra de nosso smoothie proteico acumula um ponto. Ao completar 10 pontos em um prazo de 30 dias, você ganha um smoothie grátis, que poderá ser resgatado dentro desse prazo!",
+              'Compre 10 unidades do nosso suplemento especial e ganhe a 11ª unidade grátis!',
+              'Cada compra de nosso smoothie proteico acumula um ponto. Ao completar 10 pontos em um prazo de 30 dias, você ganha um smoothie grátis, que poderá ser resgatado dentro desse prazo!',
             ]}
           />
           <AboutItem
             cardImgSrc="/card-suplemento.png"
             title="Cartão Suplemento"
             descriptions={[
-              "Em breve, lançaremos um cartão com novos prêmios incríveis!",
-              "Fique atento para mais informações e descubra como você poderá acumular pontos e trocar por diversos prêmios exclusivos.",
+              'Em breve, lançaremos um cartão com novos prêmios incríveis!',
+              'Fique atento para mais informações e descubra como você poderá acumular pontos e trocar por diversos prêmios exclusivos.',
             ]}
           />
         </div>
@@ -176,5 +176,5 @@ export default function Home() {
       </section>
       {/* //------// */}
     </Layout>
-  );
+  )
 }

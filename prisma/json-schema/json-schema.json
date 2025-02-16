@@ -17,11 +17,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "name",
-        "email",
-        "password"
-      ]
+      "required": ["name", "email", "password"]
     },
     "Customer": {
       "type": "object",
@@ -64,12 +60,7 @@
           }
         }
       },
-      "required": [
-        "name",
-        "email",
-        "cpf",
-        "phoneNumber"
-      ]
+      "required": ["name", "email", "cpf", "phoneNumber"]
     },
     "Purchase": {
       "type": "object",
@@ -83,10 +74,7 @@
         },
         "type": {
           "type": "string",
-          "enum": [
-            "smoothie",
-            "suplemento"
-          ]
+          "enum": ["smoothie", "suplemento"]
         },
         "amount": {
           "type": "number"
@@ -95,11 +83,7 @@
           "$ref": "#/definitions/Customer"
         }
       },
-      "required": [
-        "type",
-        "amount",
-        "customerId"
-      ]
+      "required": ["type", "amount", "customerId"]
     },
     "Award": {
       "type": "object",
@@ -109,10 +93,7 @@
         },
         "type": {
           "type": "string",
-          "enum": [
-            "smoothie",
-            "suplemento"
-          ]
+          "enum": ["smoothie", "suplemento"]
         },
         "awardRoundStartedAt": {
           "type": "string",
@@ -126,34 +107,21 @@
           "$ref": "#/definitions/Customer"
         }
       },
-      "required": [
-        "type",
-        "awardRoundStartedAt",
-        "customerId"
-      ]
+      "required": ["type", "awardRoundStartedAt", "customerId"]
     },
     "CardLoyalty": {
       "type": "object",
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "smoothie",
-            "suplemento"
-          ]
+          "enum": ["smoothie", "suplemento"]
         },
         "roundStartAt": {
-          "type": [
-            "string",
-            "null"
-          ],
+          "type": ["string", "null"],
           "format": "date-time"
         },
         "roundEndAt": {
-          "type": [
-            "string",
-            "null"
-          ],
+          "type": ["string", "null"],
           "format": "date-time"
         },
         "points": {
@@ -163,11 +131,7 @@
           "$ref": "#/definitions/Customer"
         }
       },
-      "required": [
-        "type",
-        "points",
-        "customerId"
-      ]
+      "required": ["type", "points", "customerId"]
     }
   },
   "type": "object",

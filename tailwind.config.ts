@@ -23,6 +23,7 @@ const config = {
       fontFamily: {
         'bank-gothic': ['var(--font-bank-gothic)'],
         supermoloc: ['var(--font-supermolot)'],
+        inter: ['var(--font-inter)'],
       },
       borderRadius: {
         lg: 'var(--radius)',

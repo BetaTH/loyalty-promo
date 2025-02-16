@@ -1,16 +1,16 @@
-"use client";
+'use client'
 
-import { preload } from "react-dom";
+import { preload } from 'react-dom'
 
 type PreloadImages = {
-  url: string;
-}[];
+  url: string
+}[]
 
 interface PreloadImagesProps {
-  images?: PreloadImages;
+  images?: PreloadImages
 }
 
 export function PreloadImages({ images }: PreloadImagesProps) {
-  preload("/bg/bg-hero.png", { as: "image" });
-  return null;
+  preload('/bg/bg-hero.png', { as: 'image' })
+  return null
 }

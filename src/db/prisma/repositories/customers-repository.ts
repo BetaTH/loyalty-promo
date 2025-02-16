@@ -1,4 +1,4 @@
-import { prisma } from "..";
+import { prisma } from '..'
 
 export class CustomersRepository {
   constructor() {}
@@ -9,8 +9,8 @@ export class CustomersRepository {
         email,
         cpf,
       },
-    });
-    return customer;
+    })
+    return customer
   }
 
   async getCustomerById(id: number) {
@@ -18,14 +18,14 @@ export class CustomersRepository {
       where: {
         id,
       },
-    });
-    return customer;
+    })
+    return customer
   }
 
   async getCustomerAward(
     customerId: number,
     awardRoundStartedAt: Date,
-    type: "smoothie" | "suplemento"
+    type: 'smoothie' | 'suplemento',
   ) {
     const award = await prisma.award.findFirst({
       where: {
@@ -33,8 +33,8 @@ export class CustomersRepository {
         customerId,
         awardRoundStartedAt,
       },
-    });
-    return award;
+    })
+    return award
   }
 
   async getCustomersRounds(date: Date) {
@@ -68,7 +68,7 @@ export class CustomersRepository {
           },
         },
       },
-    });
-    return award;
+    })
+    return award
   }
 }

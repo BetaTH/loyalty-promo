@@ -1,5 +1,5 @@
-import { $Enums } from "@prisma/client";
-import { prisma } from "..";
+import { $Enums } from '@prisma/client'
+import { prisma } from '..'
 
 export class CardLoyaltyRepository {
   constructor() {}
@@ -8,8 +8,8 @@ export class CardLoyaltyRepository {
     const smoothieRound = await prisma.cardLoyalty.findUnique({
       where: {
         customerId_type: {
-          customerId: customerId,
-          type: "smoothie",
+          customerId,
+          type: 'smoothie',
         },
         OR: [
           {
@@ -33,16 +33,16 @@ export class CardLoyaltyRepository {
           },
         ],
       },
-    });
+    })
     return (
       smoothieRound || {
-        customerId: customerId,
-        type: "smoothie",
+        customerId,
+        type: 'smoothie',
         points: 0,
         roundEndAt: null,
         roundStartAt: null,
       }
-    );
+    )
   }
 
   async getCardsWithAValidRound(customerId: number, dateNow: Date) {
@@ -75,19 +75,19 @@ export class CardLoyaltyRepository {
         type: true,
         points: true,
       },
-    });
+    })
 
-    const cardTypes = Object.values($Enums.Type);
-    cardTypes.map((cardType) => {
-      const card = cards.find((card) => card.type === cardType);
+    const cardTypes = Object.values($Enums.Type)
+    cardTypes.forEach((cardType) => {
+      const card = cards.find((card) => card.type === cardType)
       if (!card) {
         cards.push({
           type: cardType,
           points: 0,
-        });
+        })
       }
-    });
+    })
 
-    return cards;
+    return cards
   }
 }

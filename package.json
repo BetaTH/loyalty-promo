@@ -10,7 +10,11 @@
     "postinstall": "prisma generate",
     "services:up": "docker compose up -d",
     "services:stop": "docker compose stop",
-    "services:down": "docker compose down"
+    "services:down": "docker compose down",
+    "lint:prettier:check": "prettier --check .",
+    "lint:prettier:fix": "prettier --write .",
+    "lint:eslint:check": "next lint",
+    "lint:eslint:fix": "next lint --fix"
   },
   "dependencies": {
     "@icons-pack/react-simple-icons": "^9.5.0",
@@ -50,8 +54,10 @@
     "@types/react-slick": "^0.23.13",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.3",
+    "eslint-config-prettier": "^10.0.1",
     "next-superjson-plugin": "0.6.1",
     "postcss": "^8.4.38",
+    "prettier": "3.5.1",
     "prisma": "^5.14.0",
     "superjson": "2.2.1",
     "tailwindcss": "^3.4.3",

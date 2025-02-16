@@ -1,10 +1,10 @@
-import { IconLinkedIn } from "../../svg-components/icon-linkedin";
-import { IconGitHub } from "../../svg-components/icon-github";
-import { SocialButton } from "../../social-button";
-import Image from "next/image";
-import { FooterList } from "./footer-list";
-import { contactItems } from "@/lib/const/footer-contact";
-import { legalItens } from "@/lib/const/footer-legal";
+import { IconLinkedIn } from '../../svg-components/icon-linkedin'
+import { IconGitHub } from '../../svg-components/icon-github'
+import { SocialButton } from '../../social-button'
+import Image from 'next/image'
+import { FooterList } from './footer-list'
+import { contactItems } from '@/lib/const/footer-contact'
+import { legalItens } from '@/lib/const/footer-legal'
 
 export function Footer() {
   return (
@@ -43,5 +43,5 @@ export function Footer() {
         </div>
       </div>
     </footer>
-  );
+  )
 }
