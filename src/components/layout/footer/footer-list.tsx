@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { HTMLAttributeAnchorTarget } from 'react'
 
 interface FooterListProps {
   title: string
@@ -6,9 +7,10 @@ interface FooterListProps {
     name: string
     href: string
   }[]
+  target?: HTMLAttributeAnchorTarget
 }
 
-export function FooterList({ title, listItems }: FooterListProps) {
+export function FooterList({ title, listItems, target }: FooterListProps) {
   return (
     <div className="flex flex-col gap-4">
       <span className="font-semibold sm:text-xl text-lg">{title}</span>
@@ -18,7 +20,7 @@ export function FooterList({ title, listItems }: FooterListProps) {
             <Link
               href={item.href}
               className="sm:text-base text-sm hover:text-primary duration-150"
-              target="_blank"
+              target={target}
             >
               {item.name}
             </Link>

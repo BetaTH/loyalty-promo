@@ -24,7 +24,7 @@ const navLinks = [
   },
 ]
 
-export function Header() {
+export async function Header() {
   const router = useRouter()
   const pathname = usePathname()
   async function handleLogout() {
@@ -33,7 +33,7 @@ export function Header() {
   }
 
   return (
-    <header className="px-6 fixed top-0 left-0 right-0 z-10 bg-background border-b border-white/20">
+    <header className="px-6 sticky top-0 left-0 right-0 z-10 bg-background border-b border-white/20">
       <div className="mx-auto w-[65rem] sm:h-[5rem] py-3 sm:py-2 max-w-full flex justify-between items-center gap-2">
         <Link href={'/'} className="flex items-center gap-2">
           <SALogo className="text-primary sm:size-12 size-10" />
@@ -41,7 +41,7 @@ export function Header() {
             Suplementos
           </span>
         </Link>
-        {pathname === '/' && (
+        {pathname !== '/meus-pontos' && (
           <>
             <nav className="hidden md:block">
               <ul className="flex">
@@ -78,7 +78,7 @@ export function Header() {
           </>
         )}
 
-        {pathname !== '/' && (
+        {pathname === '/meus-pontos' && (
           <Button
             className="sm:text-lg hover:text-primary font-bank-gothic"
             variant={'ghost'}

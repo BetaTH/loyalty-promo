@@ -19,7 +19,11 @@ export function Footer() {
             className="w-44 sm:w-60 sm:min-w-60 sm:block"
           />
           <div className="flex gap-10 w-full sm:w-fit justify-between sm:justify-normal">
-            <FooterList title="Contato e Redes" listItems={contactItems} />
+            <FooterList
+              title="Contato e Redes"
+              listItems={contactItems}
+              target="_blank"
+            />
             <FooterList title="Legal" listItems={legalItens} />
           </div>
         </div>

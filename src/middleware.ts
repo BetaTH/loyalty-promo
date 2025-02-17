@@ -3,7 +3,14 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import { getSession, updateSessionMiddleware } from './lib/sessions'
 
-const publicRoutes = ['/', '/admin/login', '/landing', '/teste']
+const publicRoutes = [
+  '/',
+  '/admin/login',
+  '/landing',
+  '/teste',
+  '/termos-condicoes',
+  '/politicas-privacidade',
+]
 
 async function hasAdmin(baseUrl: string): Promise<{ adminExists: boolean }> {
   const res = await fetch(`${baseUrl}/api/admin/exists`)

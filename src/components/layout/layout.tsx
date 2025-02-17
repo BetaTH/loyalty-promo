@@ -16,7 +16,7 @@ export function Layout({
   children,
 }: LayoutProps) {
   return (
-    <main className={cn('h-svh', className)}>
+    <main className={cn('min-h-svh', className)}>
       {withHeader && <Header />}
       {children}
       {withFooter && <Footer />}

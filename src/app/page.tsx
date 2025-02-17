@@ -21,7 +21,6 @@ import { Layout } from '@/components/layout/layout'
 export default function Home() {
   return (
     <Layout className="bg-[url('/bg/bg.png')] bg-[length:250%] sm:bg-[length:75%] bg-repeat block">
-      <Header />
       {/* HERO */}
       <section className="sm:min-h-screen py-28 sm:pt-[6.5rem] px-5 sm:px-10 bg-[url('/bg/bg-hero.png')] bg-[length:auto_50%] sm:bg-cover sm:bg-no-repeat border-b border-primary">
         <div className="w-[55rem] max-w-full flex flex-col items-center md:flex-row mx-auto gap-24 md:gap-12 md:justify-between">
