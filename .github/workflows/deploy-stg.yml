@@ -2,7 +2,7 @@ name: Deploy Stg
 on:
   push:
     paths:
-      - ./prisma/migrations/** # Only run this workflow when migrations are updated
+      - "prisma/migrations/**" # Only run this workflow when migrations are updated
     branches:
       - staging
   workflow_dispatch:
@@ -24,8 +24,8 @@ jobs:
           version: 9
           run_install: false
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      # - name: Install dependencies
+      #   run: pnpm install --frozen-lockfile
 
       - name: Apply all pending migrations to the database
         run: pnpm dlx prisma migrate deploy

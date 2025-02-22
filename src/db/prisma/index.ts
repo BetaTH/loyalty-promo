@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client'
 
 const prismaClientSingleton = () => {
   return new PrismaClient({
-    log: env.NODE_ENV === 'development' ? ['query'] : [],
+    // log: env.NODE_ENV === 'development' ? ['query'] : [],
   })
 }
 
@@ -13,4 +13,8 @@ declare const globalThis: {
 
 export const prisma = globalThis.prismaGlobal ?? prismaClientSingleton()
 
-if (process.env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma
+export type TransactionPrismaClient = Omit<
+  PrismaClient,
+  '$connect' | '$disconnect' | '$on' | '$transaction' | '$use' | '$extends'
+>
+if (env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma

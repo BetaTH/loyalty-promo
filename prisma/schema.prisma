@@ -20,8 +20,8 @@ datasource db {
 }
 
 enum Type {
-  shake
-  common
+  smoothie
+  suplemento
 }
 
 model AdminUser {
@@ -30,30 +30,58 @@ model AdminUser {
   email    String @unique
   password String
 
-  @@map("admin_users")
+  @@map("usuarios_admin")
 }
 
-model User {
-  id          Int        @id @default(autoincrement())
-  name        String
-  email       String     @unique
-  cpf         String     @unique
-  phoneNumber String
-  created_at  DateTime   @default(now())
-  purchase    Purchase[]
+model Customer {
+  id          Int      @id @default(autoincrement())
+  name        String   @map("nome")
+  email       String   @unique
+  cpf         String   @unique
+  phoneNumber String   @map("telefone")
+  createdAt   DateTime @default(now()) @map("data_cadastro")
 
-  @@map("users")
+  purchase    Purchase[]
+  award       Award[]
+  cardLoyalty CardLoyalty[]
+
+  @@map("clientes")
 }
 
 model Purchase {
-  id         Int      @id @default(autoincrement())
-  created_at DateTime @default(now())
-  type       Type     @default(shake)
-  amount     Float
-  isGift     Boolean  @default(false)
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("data_compra")
+  type      Type     @map("tipo")
+  amount    Float    @map("valor")
 
-  user    User @relation(fields: [user_id], references: [id])
-  user_id Int
+  customer   Customer @relation(fields: [customerId], references: [id])
+  customerId Int      @map("cliente_id")
 
-  @@map("purchases")
+  @@map("compra")
+}
+
+model Award {
+  id                  Int      @id @default(autoincrement())
+  type                Type     @map("tipo")
+  awardRoundStartedAt DateTime @map("data_inicio_do_ciclo_de_premio")
+  awardRoundEndedAt   DateTime @default(now()) @map("data_fim_do_ciclo_de_premio")
+
+  customer   Customer @relation(fields: [customerId], references: [id])
+  customerId Int      @map("cliente_id")
+
+  @@map("premio")
+}
+
+model CardLoyalty {
+  type         Type      @map("tipo")
+  roundStartAt DateTime? @map("data_inicio_do_ciclo")
+  roundEndAt   DateTime? @map("data_fim_do_ciclo")
+  points       Int       @map("pontos")
+
+  customer   Customer @relation(fields: [customerId], references: [id])
+  customerId Int      @map("cliente_id")
+
+  @@id([customerId, type])
+  @@unique([customerId, type])
+  @@map("cartao_fidelidade")
 }

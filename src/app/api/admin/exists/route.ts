@@ -1,4 +1,4 @@
-import { AdminsRepository } from '@/server/prisma/repositories/admins-repository'
+import { AdminsRepository } from '@/db/prisma/repositories/admins-repository'
 import { NextResponse } from 'next/server'
 
 export const dynamic = 'force-dynamic'

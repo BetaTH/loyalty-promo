@@ -1,56 +1,181 @@
-import { LayoutWithFooter } from '@/components/layout/layout-with-footer'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
-import { getUserStats } from '@/lib/actions/user-stats'
-import { cn } from '@/lib/utils/cn'
+import { Button } from '@/components/ui/button'
+import { SiInstagram, SiWhatsapp } from '@icons-pack/react-simple-icons'
+import Link from 'next/link'
 import Image from 'next/image'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
+import { HowItWorksItem } from '@/components/home-page/how-it-works-item'
+import { AboutItem } from '@/components/home-page/about-item'
+import { HighlightsTitle } from '@/components/home-page/highlights-title'
+import { HighlightsSubTitle } from '@/components/home-page/highlights-subtitle'
+import { Header } from '@/components/layout/header'
+import { faq } from '@/lib/const/faq'
+import { LoginForm } from '@/components/home-page/login-form'
+import { HomeHero } from '@/components/home-page/home-hero'
+import { Layout } from '@/components/layout/layout'
 
-export const dynamic = 'force-dynamic'
-
-export default async function Home() {
-  const result = await getUserStats()!
-  const { user, shakeCount } = result!
-  const count = Array.from({ length: 10 }, (_, i) => i + 1)
+export default function Home() {
   return (
-    <LayoutWithFooter withHeader>
-      <Card className="max-w-full w-[21.25rem] sm:rounded-2xl rounded-xl sm:w-[40.5rem] sm:p-6 p-4 gap-6 sm:gap-12 flex flex-col shadow-md border border-gray-200/20 shadow-white/10">
-        <Image
-          src="./logo-sa.svg"
-          alt="logo"
-          width={179}
-          height={108}
-          priority
-          className="absolute sm:w-[22.4375rem] w-[15rem] h-auto -top-5 -right-12"
-        />
-        <CardHeader className="p-0">
-          <CardTitle className="w-[14.75rem] max-h-[2.8875rem] sm:max-h-[5.25rem] line-clamp-2 font-normal text-[1.375rem]/[1.05em] sm:w-[27.5rem] sm:text-[2.5rem]/[1.05em]">
-            {user.name}
-          </CardTitle>
-          <CardDescription className="text-sm/[1.05em] sm:text-2xl/[1.05em] mt-2 sm:mt-4">
-            Cartão Fidelidade:
-          </CardDescription>
-          <CardDescription className="text-3xl/6 sm:text-5xl mt-1 sm:mt-2 font-supermoloc text-primary">
-            SHAKE
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="grid w-fit grid-cols-5 gap-3 sm:gap-5 mx-auto p-0">
-          {count.map((value, idx) => {
-            return (
-              <div
-                key={idx}
-                className={cn('size-10 sm:size-16 bg-white rounded-full', {
-                  'bg-primary': value <= shakeCount,
-                })}
-              />
-            )
-          })}
-        </CardContent>
-      </Card>
-    </LayoutWithFooter>
+    <Layout className="bg-[url('/bg/bg.png')] bg-[length:250%] sm:bg-[length:75%] bg-repeat block">
+      {/* HERO */}
+      <section className="sm:min-h-screen py-28 sm:pt-[6.5rem] px-5 sm:px-10 bg-[url('/bg/bg-hero.png')] bg-[length:auto_50%] sm:bg-cover sm:bg-no-repeat border-b border-primary">
+        <div className="w-[55rem] max-w-full flex flex-col items-center md:flex-row mx-auto gap-24 md:gap-12 md:justify-between">
+          <HomeHero />
+          <LoginForm />
+        </div>
+      </section>
+      {/* //------// */}
+
+      {/* HOW IT WORKS */}
+      <section
+        id="como-participar"
+        className="-mt-14 sm:-mt-[5rem] sm:pt-[7rem] py-24 flex flex-col items-center justify-center gap-3 sm:py-8 sm:px-10 px-5"
+      >
+        <HighlightsTitle>COMO FUNCIONA</HighlightsTitle>
+        <HighlightsSubTitle>
+          SAIBA COMO <span className="text-primary">PARTICIPAR</span>
+        </HighlightsSubTitle>
+        <div className="flex flex-col gap-5 sm:flex-row mt-10 sm:mt-20 sm:mb-5 sm:w-[50rem] sm:max-w-full sm:justify-between">
+          <HowItWorksItem itemImgSrc="/register.png">
+            Realize o cadastro na nossa loja, faça compras e acumule pontos
+          </HowItWorksItem>
+          <HowItWorksItem itemImgSrc="/points.png">
+            Acesse o seu cartão fidelidade e verifique seu saldo de pontos.
+          </HowItWorksItem>
+          <HowItWorksItem itemImgSrc="/gift.png">
+            Troque seus pontos por produtos grátis e prêmios exclusivos.
+          </HowItWorksItem>
+        </div>
+      </section>
+      {/* //------// */}
+
+      {/* MESSAGE - WHATSAPP */}
+      <section
+        id="vip"
+        className="flex flex-col items-center justify-center bg-secondary w-full min-h-80 gap-5 py-24"
+      >
+        <h2 className="text-3xl w-[80%] sm:w-full sm:text-[2.5rem] text-white text-center font-semibold">
+          PARTICIPE TAMBÉM DO NOSSO <br className="hidden sm:block" />{' '}
+          <span className="text-primary">GRUPO VIP</span>
+        </h2>
+        <Button
+          asChild
+          className="rounded-full text-xl gap-2 sm:text-3xl px-8 py-6 sm:px-10 sm:py-8 flex items-center justify-center "
+        >
+          <Link href="https://www.instagram.com/sasuplementhe/" target="_blank">
+            ACESSE O GRUPO
+            <SiWhatsapp className="size-6 sm:size-[1.875rem]" />
+          </Link>
+        </Button>
+        <div className="flex flex-col gap-2 text-center">
+          <p className="font-semibold text-xl sm:text-2xl text-primary">
+            Quais o Beneficios do Grupo VIP?
+          </p>
+          <ul className="text-base sm:text-xl gap-2">
+            <li>Descontos Exclusivos</li>
+            <li>Ofertas Personalizadas</li>
+            <li>Acesso Antecipado a Promoções</li>
+          </ul>
+        </div>
+      </section>
+      {/* //------// */}
+
+      {/* ABOUT */}
+      <section
+        id="sobre"
+        className="-mt-14 sm:-mt-[5rem] sm:pt-[7rem] py-24 flex flex-col items-center justify-center gap-3 sm:py-8 sm:px-10 px-5"
+      >
+        <HighlightsTitle>SOBRE O PROGRAMA</HighlightsTitle>
+        <HighlightsSubTitle>
+          DESCUBRA O QUE VOCÊ <span className="text-primary">GANHA!</span>
+        </HighlightsSubTitle>
+        <div className="flex flex-col sm:flex-row my-5 sm:w-[60rem] sm:max-w-full sm:justify-between">
+          <AboutItem
+            cardImgSrc="/card-smoothie.png"
+            title="Cartão Smoothie"
+            descriptions={[
+              'Compre 10 unidades do nosso suplemento especial e ganhe a 11ª unidade grátis!',
+              'Cada compra de nosso smoothie proteico acumula um ponto. Ao completar 10 pontos em um prazo de 30 dias, você ganha um smoothie grátis, que poderá ser resgatado dentro desse prazo!',
+            ]}
+          />
+          <AboutItem
+            cardImgSrc="/card-suplemento.png"
+            title="Cartão Suplemento"
+            descriptions={[
+              'Em breve, lançaremos um cartão com novos prêmios incríveis!',
+              'Fique atento para mais informações e descubra como você poderá acumular pontos e trocar por diversos prêmios exclusivos.',
+            ]}
+          />
+        </div>
+      </section>
+      {/* //------// */}
+
+      {/* LOCATION */}
+      <section className="bg-background border-t border-primary py-10 flex flex-col items-center justify-center gap-3 sm:py-8 sm:px-10 px-5">
+        <HighlightsTitle>SAIBA ONDE NOS ENCONTRAR</HighlightsTitle>
+        <HighlightsSubTitle>
+          JÁ CONHECE O NOSSO <span className="text-primary">ENDEREÇO?</span>
+        </HighlightsSubTitle>
+        <div className="w-[55rem] max-w-full h-[20rem] sm:h-[25rem]">
+          <iframe
+            className="border-0 max-w-full max-h-full"
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d6129.065734728988!2d-42.821288208467855!3d-5.070086234675152!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48c1db1ca01d4f7f%3A0x1af7205e38757b41!2sSA%20Suplementos!5e0!3m2!1spt-BR!2sbr!4v1720364957174!5m2!1spt-BR!2sbr"
+            width="1590"
+            height="770"
+            loading="lazy"
+            allowFullScreen={false}
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+        <p className="text-center sm:text-lg sm:w-[25rem]">
+          Estamos localizados na Av. Centenário 1165, ao lado da Academia
+          Simplifit, Bairro Aeroporto.
+        </p>
+      </section>
+      {/* //------// */}
+
+      {/* MESSAGE -INSTAGRAM */}
+      <section className="flex flex-col items-center justify-center bg-secondary w-full min-h-80 gap-5 py-10">
+        <h2 className="text-3xl w-[80%] sm:text-[2.5rem] text-white text-center font-semibold">
+          NÃO PERCA AS NOVIDADES
+        </h2>
+        <Button
+          asChild
+          className="rounded-full text-xl gap-2 sm:text-3xl px-8 py-6 sm:px-10 sm:py-8 flex items-center justify-center "
+        >
+          <Link href="https://www.instagram.com/sasuplementhe/" target="_blank">
+            SIGA NOSSO INSTAGRAM
+            <SiInstagram className="size-6 sm:size-[1.875rem]" />
+          </Link>
+        </Button>
+      </section>
+      {/* //------// */}
+
+      {/* FAQS */}
+      <section id="faqs" className="bg-background sm:px-10 px-5">
+        <div className="w-[65rem] max-w-full mx-auto sm:py-20 py-10 flex flex-col gap-5 sm:gap-10">
+          <h2 className="sm:text-4xl text-2xl font-bold">
+            FAQ: Programa de Fidelidade
+          </h2>
+          <Accordion type="single" collapsible className="w-full">
+            {faq.map((item, idx) => (
+              <AccordionItem value={`item-${idx + 1}`} key={idx}>
+                <AccordionTrigger className="text-lg sm:text-2xl">
+                  {item.title}
+                </AccordionTrigger>
+                <AccordionContent className="text-sm sm:text-lg">
+                  {item.description}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </section>
+      {/* //------// */}
+    </Layout>
   )
 }

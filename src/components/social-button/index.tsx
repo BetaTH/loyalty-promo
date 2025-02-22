@@ -18,7 +18,7 @@ export function SocialButton({
     <Link
       href={href}
       target="_blank"
-      className="flex items-center justify-center size-8 sm:size-7"
+      className="flex items-center justify-center"
     >
       <Icon
         className={cn(

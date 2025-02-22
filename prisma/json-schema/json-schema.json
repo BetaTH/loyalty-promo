@@ -17,13 +17,9 @@
           "type": "string"
         }
       },
-      "required": [
-        "name",
-        "email",
-        "password"
-      ]
+      "required": ["name", "email", "password"]
     },
-    "User": {
+    "Customer": {
       "type": "object",
       "properties": {
         "id": {
@@ -41,7 +37,7 @@
         "phoneNumber": {
           "type": "string"
         },
-        "created_at": {
+        "createdAt": {
           "type": "string",
           "format": "date-time"
         },
@@ -50,14 +46,21 @@
           "items": {
             "$ref": "#/definitions/Purchase"
           }
+        },
+        "award": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Award"
+          }
+        },
+        "cardLoyalty": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CardLoyalty"
+          }
         }
       },
-      "required": [
-        "name",
-        "email",
-        "cpf",
-        "phoneNumber"
-      ]
+      "required": ["name", "email", "cpf", "phoneNumber"]
     },
     "Purchase": {
       "type": "object",
@@ -65,33 +68,70 @@
         "id": {
           "type": "integer"
         },
-        "created_at": {
+        "createdAt": {
           "type": "string",
           "format": "date-time"
         },
         "type": {
           "type": "string",
-          "default": "shake",
-          "enum": [
-            "shake",
-            "common"
-          ]
+          "enum": ["smoothie", "suplemento"]
         },
         "amount": {
           "type": "number"
         },
-        "isGift": {
-          "type": "boolean",
-          "default": false
-        },
-        "user": {
-          "$ref": "#/definitions/User"
+        "customer": {
+          "$ref": "#/definitions/Customer"
         }
       },
-      "required": [
-        "amount",
-        "user_id"
-      ]
+      "required": ["type", "amount", "customerId"]
+    },
+    "Award": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["smoothie", "suplemento"]
+        },
+        "awardRoundStartedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "awardRoundEndedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "customer": {
+          "$ref": "#/definitions/Customer"
+        }
+      },
+      "required": ["type", "awardRoundStartedAt", "customerId"]
+    },
+    "CardLoyalty": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["smoothie", "suplemento"]
+        },
+        "roundStartAt": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "roundEndAt": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "points": {
+          "type": "integer"
+        },
+        "customer": {
+          "$ref": "#/definitions/Customer"
+        }
+      },
+      "required": ["type", "points", "customerId"]
     }
   },
   "type": "object",
@@ -99,11 +139,17 @@
     "adminUser": {
       "$ref": "#/definitions/AdminUser"
     },
-    "user": {
-      "$ref": "#/definitions/User"
+    "customer": {
+      "$ref": "#/definitions/Customer"
     },
     "purchase": {
       "$ref": "#/definitions/Purchase"
+    },
+    "award": {
+      "$ref": "#/definitions/Award"
+    },
+    "cardLoyalty": {
+      "$ref": "#/definitions/CardLoyalty"
     }
   }
 }

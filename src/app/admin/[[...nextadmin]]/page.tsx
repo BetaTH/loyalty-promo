@@ -5,9 +5,9 @@ import {
   deleteItem,
   searchResource,
   submitFormAction,
-} from '@/lib/actions/nextadmin'
+} from '@/lib/actions/next-admin'
 import '../../globals.css'
-import { prisma } from '@/server/prisma'
+import { prisma } from '@/db/prisma'
 import { getSession } from '@/lib/sessions'
 import { translations } from '@/next-admin-translations'
 import { options } from '@/next-admin-options'

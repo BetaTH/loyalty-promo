@@ -10,7 +10,6 @@ config()
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']).default('production'),
   DATABASE_URL: z.string(),
-  DIRECT_URL: z.string(),
 })
 
 const _env = envSchema.safeParse(process.env)

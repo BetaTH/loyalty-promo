@@ -1,16 +1,25 @@
 import type { Metadata } from 'next'
-// import { Inter } from 'next/font/google'
+import { Inter, Play } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/components/them-provider'
 import { cn } from '@/lib/utils/cn'
 import localFont from 'next/font/local'
 import { Toaster } from '@/components/ui/toaster'
+import { PreloadImages } from '@/components/preload/preload-images'
 
-// const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+})
+
+const play = Play({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+})
 
 export const metadata: Metadata = {
   title: 'Promoção Fidelidade',
-  description: 'Promoção Fidelidade da SA Suplemento',
+  description: 'Promoção Fidelidade da SA Suplementos',
 }
 
 const supermolot = localFont({
@@ -33,12 +42,15 @@ export default function RootLayout({
     <html lang="pt" suppressHydrationWarning>
       <body
         className={cn(
-          'bg-background',
-          bankGothic.className,
+          'bg-background ',
+          play.className,
+          bankGothic.variable,
           supermolot.variable,
+          inter.variable,
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <PreloadImages />
           {children}
         </ThemeProvider>
         <Toaster />

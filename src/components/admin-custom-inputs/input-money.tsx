@@ -22,7 +22,6 @@ export function InputMoney({
       target: { ...target, value: String(parsedValue) },
     })
   }
-
   return (
     <>
       <Input
@@ -31,7 +30,7 @@ export function InputMoney({
         value={formatMoney(Number(value ?? 0).toFixed(2))}
         onChange={handleChange}
       />
-      <input type="hidden" name={name} value={value} />
+      <input type="hidden" name={name} value={value} defaultValue={0} />
     </>
   )
 }
