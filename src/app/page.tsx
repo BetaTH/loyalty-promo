@@ -158,7 +158,9 @@ export default function Home() {
       {/* FAQS */}
       <section id="faqs" className="bg-background sm:px-10 px-5">
         <div className="w-[65rem] max-w-full mx-auto sm:py-20 py-10 flex flex-col gap-5 sm:gap-10">
-          <h2 className="sm:text-4xl text-2xl font-bold">FAQ</h2>
+          <h2 className="sm:text-4xl text-2xl font-bold">
+            FAQ: Programa de Fidelidade
+          </h2>
           <Accordion type="single" collapsible className="w-full">
             {faq.map((item, idx) => (
               <AccordionItem value={`item-${idx + 1}`} key={idx}>
